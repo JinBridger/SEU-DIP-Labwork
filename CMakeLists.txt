@@ -12,8 +12,11 @@ set(CMAKE_AUTOUIC ON)
 include_directories(include)
 aux_source_directory(src SOURCES)
 
-if (MINGW)
-  add_compile_options(-target x86_64-w64-mingw32)
+set(CMAKE_PREFIX_PATH "C:/Qt/6.5.3/msvc2019_64/lib/cmake/Qt6")
+
+if(MSVC)
+  add_compile_options(/Zc:__cplusplus)
+  # add_compile_options(/permissive-)
 endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
