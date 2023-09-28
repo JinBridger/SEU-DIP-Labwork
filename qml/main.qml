@@ -1,21 +1,69 @@
-import QtQuick 2.15
-import QtQuick.Window 2.15
+import QtQuick
+import QtQuick.Window
+import "components"
 
 Window {
     id: window
     visible: true
-    width: 640
-    height: 480
-    flags: Qt.FramelessWindowHint // 设置窗口标志为无边框，这将隐藏标题栏
+    width: 1366
+    height: 768
+    flags: Qt.FramelessWindowHint | Qt.Window
 
     MouseArea {
-        id: dragArea
-        anchors.fill: parent
-        onPressed: { window.startSystemMove(); }
+        id: resizeArea
+        width: 20
+        height: 20
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        cursorShape: Qt.SizeFDiagCursor
+
+        property real startX: 0
+        property real startY: 0
+
+        onPressed: {
+            startX = mouse.x;
+            startY = mouse.y;
+        }
+
+        onMouseXChanged: {
+            var dx = mouse.x - startX;
+            if (window.width + dx > window.minimumWidth) {
+                window.width += dx;
+            }
+        }
+
+        onMouseYChanged: {
+            var dy = mouse.y - startY;
+            if (window.height + dy > window.minimumHeight) {
+                window.height += dy;
+            }
+        }
     }
 
-    Text {
-        text: "Drag me anywhere"
-        anchors.centerIn: parent
+    Column {
+        anchors.fill: window
+
+        TitleBar {
+            id: titleBar
+            width: window.width
+            MouseArea {
+                id: dragArea
+                anchors.fill: parent
+                onPressed: { window.startSystemMove(); }
+            }
+        }
+
+        Rectangle {
+            id: mainWindow
+            height: window.height - titleBar.height
+            width: window.width
+
+            Row {
+                anchors.fill: mainWindow
+                NaviRail {
+                    height: mainWindow.height
+                }
+            }
+        }
     }
 }
