@@ -10,32 +10,35 @@ Window {
     flags: Qt.FramelessWindowHint | Qt.Window
 
     MouseArea {
-        id: resizeArea
-        width: 20
-        height: 20
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
-        cursorShape: Qt.SizeFDiagCursor
+        id: mouseArea
+        anchors.fill: parent
+        hoverEnabled: true
+        acceptedButtons: Qt.LeftButton
 
-        property real startX: 0
-        property real startY: 0
+        property int edges: 0;
+        property int edgeOffest: 5;
 
+        function setEdges(x, y) {
+            edges = 0;
+            if(x < edgeOffest) edges |= Qt.LeftEdge;
+            if(x > (width - edgeOffest))  edges |= Qt.RightEdge;
+            if(y < edgeOffest) edges |= Qt.TopEdge;
+            if(y > (height - edgeOffest)) edges |= Qt.BottomEdge;
+        }
+
+        cursorShape: {
+            return !containsMouse ? Qt.ArrowCursor:
+                   edges == 3 || edges == 12 ? Qt.SizeFDiagCursor :
+                   edges == 5 || edges == 10 ? Qt.SizeBDiagCursor :
+                   edges & 9 ? Qt.SizeVerCursor :
+                   edges & 6 ? Qt.SizeHorCursor : Qt.ArrowCursor;
+        }
+
+        onPositionChanged: setEdges(mouseX, mouseY);
         onPressed: {
-            startX = mouse.x;
-            startY = mouse.y;
-        }
-
-        onMouseXChanged: {
-            var dx = mouse.x - startX;
-            if (window.width + dx > window.minimumWidth) {
-                window.width += dx;
-            }
-        }
-
-        onMouseYChanged: {
-            var dy = mouse.y - startY;
-            if (window.height + dy > window.minimumHeight) {
-                window.height += dy;
+            setEdges(mouseX, mouseY);
+            if(edges && containsMouse) {
+                startSystemResize(edges);
             }
         }
     }
