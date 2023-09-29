@@ -74,7 +74,47 @@ Window {
             Row {
                 anchors.fill: mainWindow
                 NaviRail {
+                    id: naviRail
                     height: mainWindow.height
+                }
+
+                Rectangle{
+                    id: mapItemArea
+                    height: mainWindow.height
+                    width: mainWindow.width - naviRail.width
+                    clip: true
+                    color: "gray"
+
+                    Image {
+                        id: mapImg
+                        x: mapItemArea.width/2-mapImg.width/2
+                        y: mapItemArea.height/2-mapImg.height/2
+                        source: "qrc:/res/image/GitHub-Mark.png"
+                    }
+
+                    MouseArea {
+                        id: mapDragArea
+                        anchors.fill: mapImg
+                        drag.target: mapImg
+
+                        drag.minimumX: (mapImg.width > mapItemArea.width) ? (mapItemArea.width - mapImg.width) : 0
+                        drag.minimumY: (mapImg.height > mapItemArea.height) ? (mapItemArea.height - mapImg.height) : 0
+                        drag.maximumX: (mapImg.width > mapItemArea.width) ? 0 : (mapItemArea.width - mapImg.width)
+                        drag.maximumY: (mapImg.height > mapItemArea.height) ? 0 : (mapItemArea.height - mapImg.height)
+
+
+                        onWheel: {
+                            var delta = wheel.angleDelta.y/120;
+                            if(delta > 0)
+                            {
+                                mapImg.scale = mapImg.scale/0.9
+                            }
+                            else
+                            {
+                                mapImg.scale = mapImg.scale*0.9
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -22,10 +22,11 @@ endif()
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(Qt6 COMPONENTS Core Quick REQUIRED)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
 add_executable(SEU-DIP-Labwork
     ${SOURCES}
     qml.qrc
 )
 
-target_link_libraries(SEU-DIP-Labwork Qt6::Core Qt6::Quick)
+target_link_libraries(SEU-DIP-Labwork Qt6::Core Qt6::Quick Qt6::Widgets)
