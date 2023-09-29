@@ -9,6 +9,16 @@ Window {
     height: 768
     flags: Qt.FramelessWindowHint | Qt.Window
 
+    FontLoader {
+        id: sarasaRegular
+        source: "qrc:/res/font/sarasa-ui-sc-regular.ttf"
+    }
+
+    FontLoader {
+        id: sarasaSemibold
+        source: "qrc:/res/font/sarasa-ui-sc-semibold.ttf"
+    }
+
     MouseArea {
         id: mouseArea
         anchors.fill: parent
