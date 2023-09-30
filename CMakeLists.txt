@@ -9,6 +9,9 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
+
 include_directories(include)
 aux_source_directory(src SOURCES)
 
@@ -16,7 +19,6 @@ set(CMAKE_PREFIX_PATH "C:/Qt/6.5.3/msvc2019_64/lib/cmake/Qt6")
 
 if(MSVC)
   add_compile_options(/Zc:__cplusplus)
-  # add_compile_options(/permissive-)
 endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -29,4 +31,4 @@ add_executable(SEU-DIP-Labwork
     qml.qrc
 )
 
-target_link_libraries(SEU-DIP-Labwork Qt6::Core Qt6::Quick Qt6::Widgets)
+target_link_libraries(${PROJECT_NAME} Qt6::Core Qt6::Quick Qt6::Widgets ${OpenCV_LIBS})

@@ -1,6 +1,8 @@
 .cache
 .vscode
 .idea
+.xmake
 cmake-build-debug
+cmake-build-debug-visual-studio
 build
 qml_rc.py
