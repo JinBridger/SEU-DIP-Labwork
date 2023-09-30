@@ -28,6 +28,7 @@ Rectangle {
         }
 
         ToolButton {
+            z: 2
             hoverEnabled: false
             background: Rectangle { color: "transparent" }
             onClicked: Qt.quit()

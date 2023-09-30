@@ -1,5 +1,8 @@
 import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 import Qt5Compat.GraphicalEffects
+import "Icon.js" as MdiFont
 
 Item {
     id: naviRail
@@ -11,6 +14,21 @@ Item {
         width: parent.width
         height: parent.height
         color: "white"
+
+        ColumnLayout {
+            anchors.fill: parent
+            ToolButton {
+                hoverEnabled: false
+                background: Rectangle { color: "transparent" }
+                onClicked: console.log("clicked")
+                contentItem: Text {
+                    text: MdiFont.Icon.folder
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
+        }
     }
 
     DropShadow {

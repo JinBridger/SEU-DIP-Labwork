@@ -61,13 +61,14 @@ Window {
     Column {
         anchors.fill: window
 
-        TitleBar {
-            id: titleBar
+        MouseArea {
+            id: dragArea
+            height: 50
             width: window.width
-            MouseArea {
-                id: dragArea
-                anchors.fill: parent
-                onPressed: { window.startSystemMove(); }
+            onPressed: { window.startSystemMove(); }
+            TitleBar {
+                id: titleBar
+                width: window.width
             }
         }
 
