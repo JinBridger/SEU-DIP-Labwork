@@ -19,6 +19,11 @@ Window {
         source: "qrc:/res/font/sarasa-ui-sc-semibold.ttf"
     }
 
+    FontLoader {
+        id: materialIcon
+        source: "qrc:/res/font/materialdesignicons-webfont.ttf"
+    }
+
     MouseArea {
         id: mouseArea
         anchors.fill: parent
@@ -94,14 +99,10 @@ Window {
 
                     MouseArea {
                         id: mapDragArea
-                        anchors.fill: mapImg
+                        width: mapImg.width * mapImg.scale
+                        height: mapImg.height * mapImg.scale
+                        anchors.centerIn: mapImg
                         drag.target: mapImg
-
-                        drag.minimumX: (mapImg.width > mapItemArea.width) ? (mapItemArea.width - mapImg.width) : 0
-                        drag.minimumY: (mapImg.height > mapItemArea.height) ? (mapItemArea.height - mapImg.height) : 0
-                        drag.maximumX: (mapImg.width > mapItemArea.width) ? 0 : (mapItemArea.width - mapImg.width)
-                        drag.maximumY: (mapImg.height > mapItemArea.height) ? 0 : (mapItemArea.height - mapImg.height)
-
 
                         onWheel: {
                             var delta = wheel.angleDelta.y/120;
