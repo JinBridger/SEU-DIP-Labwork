@@ -1,20 +1,22 @@
 #pragma once
 
-#include <QQuickView>
-#include <QQmlEngine>
-#include <QQmlContext>
+#include "Core.hpp"
+#include "FourierTrans.hpp"
+#include "ImgProvider.hpp"
+
 #include <QCoreApplication>
 #include <QFileDialog>
-#include <QQuickItem>
 #include <QObject>
-#include "Core.hpp"
-#include "ImgProvider.hpp"
-#include "FourierTrans.hpp"
+#include <QQmlContext>
+#include <QQmlEngine>
+#include <QQuickItem>
+#include <QQuickView>
 
-class App: public QQuickView {
+
+class App : public QQuickView {
     Q_OBJECT
 public:
-    App(QWindow *parent = 0): QQuickView(parent), _imgCore(new Core()) {
+    App(QWindow* parent = 0) : QQuickView(parent), _imgCore(new Core()) {
         engine()->addImageProvider("imgprovider", new ImgProvider(_imgCore));
         setSource(QUrl("qrc:/qml/main.qml"));
         setResizeMode(QQuickView::SizeRootObjectToView);
@@ -24,7 +26,7 @@ public:
 public slots:
     void loadImg() {
         QString imgPath = QFileDialog::getOpenFileName();
-        if(imgPath != "")
+        if (imgPath != "")
             _imgCore->loadImg(imgPath.toStdString());
     };
 

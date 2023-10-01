@@ -1,15 +1,16 @@
 #pragma once
 
 #include <iostream>
-#include <vector>
 #include <opencv2/opencv.hpp>
+#include <vector>
+
 
 class FourierTrans {
 public:
     [[nodiscard]] cv::Mat fourierTrans(cv::Mat srcImage) {
         cv::cvtColor(srcImage, srcImage, cv::COLOR_BGR2GRAY);
 
-        cv::Mat planes[] = {cv::Mat_<float>(srcImage), cv::Mat::zeros(srcImage.size(), CV_32F)};
+        cv::Mat planes[] = { cv::Mat_<float>(srcImage), cv::Mat::zeros(srcImage.size(), CV_32F) };
 
         cv::Mat complexI;
         cv::merge(planes, 2, complexI);
@@ -22,7 +23,6 @@ public:
         magnitude(planes[0], planes[1], planes[0]);
         cv::Mat magnitudeImage = planes[0];
 
-
         magnitudeImage += cv::Scalar::all(1);
         cv::log(magnitudeImage, magnitudeImage);
 
@@ -30,6 +30,7 @@ public:
 
         int cx = magnitudeImage.cols / 2;
         int cy = magnitudeImage.rows / 2;
+
         cv::Mat q0(magnitudeImage, cv::Rect(0, 0, cx, cy));
         cv::Mat q1(magnitudeImage, cv::Rect(cx, 0, cx, cy));
         cv::Mat q2(magnitudeImage, cv::Rect(0, cy, cx, cy));
@@ -49,7 +50,7 @@ public:
         return magnitudeImage;
     }
 
-    [[nodiscard]] cv::Mat customFourierTrans(const cv::Mat &srcImg) {
+    [[nodiscard]] cv::Mat customFourierTrans(const cv::Mat& srcImg) {
         // convert source image to double vector
         std::vector<std::vector<double>> img;
         for (int i = 0; i < srcImg.rows; ++i) {
@@ -68,6 +69,7 @@ public:
         // calculate fourier transform
         double maxValue = 0;
         double minValue = 1000;
+
         std::vector<std::vector<double>> dst(img.size(), std::vector<double>(img[0].size()));
         for (auto u = 0; u < img.size(); ++u) {
             for (auto v = 0; v < img[0].size(); ++v) {
@@ -75,35 +77,38 @@ public:
                 double imag = 0;
                 for (auto x = 0; x < img.size(); ++x) {
                     for (auto y = 0; y < img[0].size(); ++y) {
-                        double theta = -2.0 * _pi * (double(u * x) / double(img[0].size()) + double(v * y) / double(img.size()));
+                        double theta =
+                            -2.0 * _pi * (double(u * x) / double(img[0].size()) + double(v * y) / double(img.size()));
                         real += cos(theta) * img[x][y];
                         imag += sin(theta) * img[x][y];
                     }
                 }
                 dst[u][v] = log(sqrt(real * real + imag * imag) + 1);
-                if(dst[u][v] > maxValue) maxValue = dst[u][v];
-                if(dst[u][v] < minValue) minValue = dst[u][v];
+                if (dst[u][v] > maxValue)
+                    maxValue = dst[u][v];
+                if (dst[u][v] < minValue)
+                    minValue = dst[u][v];
             }
         }
 
         // normalization
-        for(auto u = 0; u < dst.size(); ++u) {
-            for(auto v = 0; v < dst[0].size(); ++v) {
+        for (auto u = 0; u < dst.size(); ++u) {
+            for (auto v = 0; v < dst[0].size(); ++v) {
                 dst[u][v] = (dst[u][v] - minValue) * 255.0 / (maxValue - minValue);
             }
         }
 
         // cut to let the length of side be even
-        if(dst.size() % 2)
+        if (dst.size() % 2)
             dst.pop_back();
-        if(dst[0].size() % 2)
-            for(auto& line: dst) {
+        if (dst[0].size() % 2)
+            for (auto& line : dst) {
                 line.pop_back();
             }
 
         // swap
-        for(auto i = 0; i < dst.size() / 2; ++i) {
-            for(auto j = 0; j < dst[0].size() / 2; ++j) {
+        for (auto i = 0; i < dst.size() / 2; ++i) {
+            for (auto j = 0; j < dst[0].size() / 2; ++j) {
                 std::swap(dst[i][j], dst[i + dst.size() / 2][j + dst[0].size() / 2]);
                 std::swap(dst[i][j + dst[0].size() / 2], dst[i + dst.size() / 2][j]);
             }

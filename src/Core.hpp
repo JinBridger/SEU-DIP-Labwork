@@ -1,7 +1,8 @@
 #pragma once
 
-#include <string>
 #include <opencv2/opencv.hpp>
+#include <string>
+
 
 class Core {
 public:
@@ -24,12 +25,13 @@ public:
     }
 
     void loadImg(std::string img_path) {
-        _imgPath = img_path;
+        _imgPath   = img_path;
         _oriImgMat = cv::imread(_imgPath);
         _dstImgMat = cv::Mat();
     }
+
 private:
     std::string _imgPath;
-    cv::Mat _oriImgMat;
-    cv::Mat _dstImgMat;
+    cv::Mat     _oriImgMat;
+    cv::Mat     _dstImgMat;
 };
