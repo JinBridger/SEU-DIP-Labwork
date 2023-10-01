@@ -4,6 +4,9 @@
 #include <QQmlEngine>
 #include <QQmlContext>
 #include <QCoreApplication>
+#include <QFileDialog>
+#include <QQuickItem>
+#include <QObject>
 #include "Core.hpp"
 #include "ImgProvider.hpp"
 
@@ -19,6 +22,11 @@ public:
         setFlags(Qt::FramelessWindowHint);
     }
 public slots:
+    void loadImg() {
+        QString imgPath = QFileDialog::getOpenFileName();
+        _imgCore->loadImg(imgPath.toStdString());
+    };
+
     void quitApplication() {
         QCoreApplication::quit();
     }

@@ -19,13 +19,17 @@ Item {
             anchors.top:parent.top
             anchors.horizontalCenter:parent.horizontalCenter
             // anchors.fill: parent
+            Item {
+                width: 1
+                height: 10
+            }
             ToolButton {
                 hoverEnabled: false
                 background: Rectangle {
                     width: parent.width
                     color: "transparent"
                 }
-                onClicked: console.log("clicked")
+                onClicked: { appView.loadImg(); oriMapImg.reloadImage();}
                 contentItem: Text {
                     text: MdiFont.Icon.folder
                     color: "gray"

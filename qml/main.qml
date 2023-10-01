@@ -96,6 +96,11 @@ Rectangle {
                         x: oriMapItemArea.width/2-oriMapImg.width/2
                         y: oriMapItemArea.height/2-oriMapImg.height/2
                         source: "image://imgprovider/myimage"
+
+                        function reloadImage() {
+                            source += "1"
+                            console.log("test")
+                        }
                     }
 
                     MouseArea {
@@ -138,6 +143,12 @@ Rectangle {
                         y: mapItemArea.height/2-mapImg.height/2
                         // source: "qrc:/res/image/GitHub-Mark.png"
                         source: "image://imgprovider/image"
+
+                        function reloadImage() {
+                            var oldSource = source
+                            source = ""
+                            source = oldSource
+                        }
                     }
 
                     MouseArea {
