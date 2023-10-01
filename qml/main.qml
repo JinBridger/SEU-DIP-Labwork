@@ -85,9 +85,51 @@ Window {
                 }
 
                 Rectangle{
+                    id: oriMapItemArea
+                    height: mainWindow.height
+                    width: (mainWindow.width - naviRail.width)/2
+                    clip: true
+                    color: "gray"
+
+                    Image {
+                        id: oriMapImg
+                        x: oriMapItemArea.width/2-oriMapImg.width/2
+                        y: oriMapItemArea.height/2-oriMapImg.height/2
+                        // source: "qrc:/res/image/GitHub-Mark.png"
+                        source: "image://imgprovider/myimage"
+                    }
+
+                    MouseArea {
+                        id: oriMapDragArea
+                        width: oriMapImg.width * oriMapImg.scale
+                        height: oriMapImg.height * oriMapImg.scale
+                        anchors.centerIn: oriMapImg
+                        drag.target: oriMapImg
+
+                        onWheel: {
+                            var delta = wheel.angleDelta.y/120;
+                            if(delta > 0)
+                            {
+                                oriMapImg.scale = oriMapImg.scale/0.9
+                            }
+                            else
+                            {
+                                oriMapImg.scale = oriMapImg.scale*0.9
+                            }
+                        }
+                    }
+                }
+
+                Rectangle {
+                    width: 1
+                    height: mainWindow.height
+                    color: "black"
+                }
+
+                Rectangle{
                     id: mapItemArea
                     height: mainWindow.height
-                    width: mainWindow.width - naviRail.width
+                    width: (mainWindow.width - naviRail.width)/2 -1
                     clip: true
                     color: "gray"
 
@@ -95,7 +137,8 @@ Window {
                         id: mapImg
                         x: mapItemArea.width/2-mapImg.width/2
                         y: mapItemArea.height/2-mapImg.height/2
-                        source: "qrc:/res/image/GitHub-Mark.png"
+                        // source: "qrc:/res/image/GitHub-Mark.png"
+                        source: "image://imgprovider/image"
                     }
 
                     MouseArea {

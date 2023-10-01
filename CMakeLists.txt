@@ -12,7 +12,6 @@ set(CMAKE_AUTOUIC ON)
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
-include_directories(include)
 aux_source_directory(src SOURCES)
 
 set(CMAKE_PREFIX_PATH "C:/Qt/6.5.3/msvc2019_64/lib/cmake/Qt6")
@@ -29,6 +28,9 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets)
 add_executable(SEU-DIP-Labwork
     ${SOURCES}
     qml.qrc
+        src/Core.hpp
+        src/FourierTrans.hpp
+        src/ImgProvider.hpp
 )
 
 target_link_libraries(${PROJECT_NAME} Qt6::Core Qt6::Quick Qt6::Widgets ${OpenCV_LIBS})
