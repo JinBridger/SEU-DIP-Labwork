@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+#include <vector>
 #include <opencv2/opencv.hpp>
 
 class FourierTrans {
@@ -55,5 +57,86 @@ public:
         return magnitudeImage;
     }
 
+    [[nodiscard]] void customFourierTrans(const cv::Mat &srcImg) {
+        // convert source image to double vector
+        std::vector<std::vector<double>> img;
+        for (int i = 0; i < srcImg.rows; ++i) {
+            img.emplace_back(srcImg.cols);
+            for (int j = 0; j < srcImg.cols; ++j) {
+                cv::Vec3b pixelColor = srcImg.at<cv::Vec3b>(i, j);
+
+                double B = pixelColor[0];
+                double G = pixelColor[1];
+                double R = pixelColor[2];
+
+                img[i][j] = double(0.299 * R + 0.587 * G + 0.144 * B);
+            }
+        }
+
+        // calculate fourier transform
+        double maxValue = 0;
+        double minValue = 1000;
+        std::vector<std::vector<double>> dst(img.size(), std::vector<double>(img[0].size()));
+        for (auto u = 0; u < img.size(); ++u) {
+            for (auto v = 0; v < img[0].size(); ++v) {
+                double real = 0;
+                double imag = 0;
+                for (auto x = 0; x < img.size(); ++x) {
+                    for (auto y = 0; y < img[0].size(); ++y) {
+                        double theta = -2.0 * _pi * (double(u * x) / double(img[0].size()) + double(v * y) / double(img.size()));
+                        real += cos(theta) * img[x][y];
+                        imag += sin(theta) * img[x][y];
+                    }
+                }
+                dst[u][v] = log(sqrt(real * real + imag * imag) + 1);
+                if(dst[u][v] > maxValue) maxValue = dst[u][v];
+                if(dst[u][v] < minValue) minValue = dst[u][v];
+            }
+        }
+
+        std::cout << "max: " << maxValue << std::endl;
+        std::cout << "min: " << minValue << std::endl;
+
+        // normalization
+        for(auto u = 0; u < dst.size(); ++u) {
+            for(auto v = 0; v < dst[0].size(); ++v) {
+                dst[u][v] = (dst[u][v] - minValue) * 255.0 / (maxValue - minValue);
+            }
+        }
+
+        // cut to let the length of side be even
+        if(dst.size() % 2)
+            dst.pop_back();
+        if(dst[0].size() % 2)
+            for(auto& line: dst) {
+                line.pop_back();
+            }
+
+        // swap
+        for(auto i = 0; i < dst.size() / 2; ++i) {
+            for(auto j = 0; j < dst[0].size() / 2; ++j) {
+                std::swap(dst[i][j], dst[i + dst.size() / 2][j + dst[0].size() / 2]);
+                std::swap(dst[i][j + dst[0].size() / 2], dst[i + dst.size() / 2][j]);
+            }
+        }
+
+        // output
+        cv::Mat mat(dst.size(), dst[0].size(), CV_64F);
+
+        for (int i = 0; i < mat.rows; ++i) {
+            for (int j = 0; j < mat.cols; ++j) {
+                mat.at<double>(i, j) = dst[i][j];
+            }
+        }
+
+        cv::Mat img_8u;
+        mat.convertTo(img_8u, CV_8U);
+
+        cv::imshow("opencv", fourierTrans(srcImg));
+        cv::imshow("Image", img_8u);
+//        cv::waitKey(0);
+    }
+
 private:
+    const double _pi = 3.1415926535897932;
 };

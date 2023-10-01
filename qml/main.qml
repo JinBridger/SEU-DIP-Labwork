@@ -2,12 +2,12 @@ import QtQuick
 import QtQuick.Window
 import "components"
 
-Window {
+Rectangle {
     id: window
-    visible: true
+    // visible: true
     width: 1366
     height: 768
-    flags: Qt.FramelessWindowHint | Qt.Window
+    // flags: Qt.FramelessWindowHint | Qt.Window
 
     FontLoader {
         id: sarasaRegular
@@ -53,7 +53,7 @@ Window {
         onPressed: {
             setEdges(mouseX, mouseY);
             if(edges && containsMouse) {
-                startSystemResize(edges);
+                appView.startResize(edges);
             }
         }
     }
@@ -65,7 +65,7 @@ Window {
             id: dragArea
             height: 50
             width: window.width
-            onPressed: { window.startSystemMove(); }
+            onPressed: { appView.startMove(); }
             TitleBar {
                 id: titleBar
                 width: window.width
@@ -95,7 +95,6 @@ Window {
                         id: oriMapImg
                         x: oriMapItemArea.width/2-oriMapImg.width/2
                         y: oriMapItemArea.height/2-oriMapImg.height/2
-                        // source: "qrc:/res/image/GitHub-Mark.png"
                         source: "image://imgprovider/myimage"
                     }
 

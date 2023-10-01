@@ -15,11 +15,16 @@ Item {
         height: parent.height
         color: "white"
 
-        ColumnLayout {
-            anchors.fill: parent
+        Column {
+            anchors.top:parent.top
+            anchors.horizontalCenter:parent.horizontalCenter
+            // anchors.fill: parent
             ToolButton {
                 hoverEnabled: false
-                background: Rectangle { color: "transparent" }
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
                 onClicked: console.log("clicked")
                 contentItem: Text {
                     text: MdiFont.Icon.folder

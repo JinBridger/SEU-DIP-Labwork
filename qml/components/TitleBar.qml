@@ -31,7 +31,7 @@ Rectangle {
             z: 2
             hoverEnabled: false
             background: Rectangle { color: "transparent" }
-            onClicked: Qt.quit()
+            onClicked: { appView.quitApplication(); }
             contentItem: Text {
                 text: MdiFont.Icon.close
                 color: "white"
