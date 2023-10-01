@@ -49,10 +49,22 @@ Item {
                     width: parent.width
                     color: "transparent"
                 }
-                onClicked: {
-                    appView.fourierTrans();
-                    mapImg.reloadImage();
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
+                        if (mouse.button === Qt.LeftButton) {
+                            appView.fourierTrans();
+                            mapImg.reloadImage();
+                        } else if (mouse.button === Qt.RightButton) {
+                            appView.customFourierTrans();
+                            mapImg.reloadImage();
+                        }
+                    }
                 }
+
                 contentItem: Text {
                     text: MdiFont.Icon.waveform
                     color: "gray"

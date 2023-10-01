@@ -30,6 +30,10 @@ public slots:
     };
 
     void fourierTrans() {
+        _imgCore->setDstImgMat(FourierTrans().fourierTrans(_imgCore->getOriImgMat()));
+    }
+
+    void customFourierTrans() {
         _imgCore->setDstImgMat(FourierTrans().customFourierTrans(_imgCore->getOriImgMat()));
     }
 
