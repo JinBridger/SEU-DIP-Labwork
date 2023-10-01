@@ -14,8 +14,6 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 
 aux_source_directory(src SOURCES)
 
-set(CMAKE_PREFIX_PATH "C:/Qt/6.5.3/msvc2019_64/lib/cmake/Qt6")
-
 if(MSVC)
   add_compile_options(/Zc:__cplusplus)
 endif()
