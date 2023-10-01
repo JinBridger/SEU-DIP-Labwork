@@ -9,15 +9,6 @@ public:
     [[nodiscard]] cv::Mat fourierTrans(cv::Mat srcImage) {
         cv::cvtColor(srcImage, srcImage, cv::COLOR_BGR2GRAY);
 
-//        int m = cv::getOptimalDFTSize(srcImage.rows);
-//        int n = cv::getOptimalDFTSize(srcImage.cols);
-//
-//        cv::Mat padded;
-//        cv::copyMakeBorder(srcImage, padded, 0, m - srcImage.rows, 0, n - srcImage.cols, cv::BORDER_CONSTANT,
-//                       cv::Scalar::all(0));
-//        std::cout << padded.size() << padded.channels() << std::endl;
-
-//        cv::Mat planes[] = {cv::Mat_<float>(padded), cv::Mat::zeros(padded.size(), CV_32F)};
         cv::Mat planes[] = {cv::Mat_<float>(srcImage), cv::Mat::zeros(srcImage.size(), CV_32F)};
 
         cv::Mat complexI;
@@ -53,11 +44,12 @@ public:
         tmp.copyTo(q2);
 
         cv::normalize(magnitudeImage, magnitudeImage, 0, 1, cv::NORM_MINMAX);
+        magnitudeImage.convertTo(magnitudeImage, CV_8UC1, 255, 0);
 
         return magnitudeImage;
     }
 
-    [[nodiscard]] void customFourierTrans(const cv::Mat &srcImg) {
+    [[nodiscard]] cv::Mat customFourierTrans(const cv::Mat &srcImg) {
         // convert source image to double vector
         std::vector<std::vector<double>> img;
         for (int i = 0; i < srcImg.rows; ++i) {
@@ -94,9 +86,6 @@ public:
             }
         }
 
-        std::cout << "max: " << maxValue << std::endl;
-        std::cout << "min: " << minValue << std::endl;
-
         // normalization
         for(auto u = 0; u < dst.size(); ++u) {
             for(auto v = 0; v < dst[0].size(); ++v) {
@@ -121,20 +110,14 @@ public:
         }
 
         // output
-        cv::Mat mat(dst.size(), dst[0].size(), CV_64F);
-
-        for (int i = 0; i < mat.rows; ++i) {
-            for (int j = 0; j < mat.cols; ++j) {
-                mat.at<double>(i, j) = dst[i][j];
+        cv::Mat ret(dst.size(), dst[0].size(), CV_64F);
+        for (int i = 0; i < ret.rows; ++i) {
+            for (int j = 0; j < ret.cols; ++j) {
+                ret.at<double>(i, j) = dst[i][j];
             }
         }
-
-        cv::Mat img_8u;
-        mat.convertTo(img_8u, CV_8U);
-
-        cv::imshow("opencv", fourierTrans(srcImg));
-        cv::imshow("Image", img_8u);
-//        cv::waitKey(0);
+        ret.convertTo(ret, CV_8U);
+        return ret;
     }
 
 private:

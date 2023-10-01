@@ -9,6 +9,7 @@
 #include <QObject>
 #include "Core.hpp"
 #include "ImgProvider.hpp"
+#include "FourierTrans.hpp"
 
 class App: public QQuickView {
     Q_OBJECT
@@ -24,8 +25,13 @@ public:
 public slots:
     void loadImg() {
         QString imgPath = QFileDialog::getOpenFileName();
-        _imgCore->loadImg(imgPath.toStdString());
+        if(imgPath != "")
+            _imgCore->loadImg(imgPath.toStdString());
     };
+
+    void fourierTrans() {
+        _imgCore->setDstImgMat(FourierTrans().customFourierTrans(_imgCore->getOriImgMat()));
+    }
 
     void quitApplication() {
         QCoreApplication::quit();

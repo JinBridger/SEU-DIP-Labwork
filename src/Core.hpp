@@ -11,15 +11,25 @@ public:
         return _imgPath;
     }
 
-    [[nodiscard]] cv::Mat getImgMat() const {
-        return _imgMat;
+    [[nodiscard]] cv::Mat getOriImgMat() const {
+        return _oriImgMat;
+    }
+
+    [[nodiscard]] cv::Mat getDstImgMat() const {
+        return _dstImgMat;
+    }
+
+    void setDstImgMat(cv::Mat img) {
+        _dstImgMat = img;
     }
 
     void loadImg(std::string img_path) {
         _imgPath = img_path;
-        _imgMat = cv::imread(_imgPath);
+        _oriImgMat = cv::imread(_imgPath);
+        _dstImgMat = cv::Mat();
     }
 private:
     std::string _imgPath;
-    cv::Mat _imgMat;
+    cv::Mat _oriImgMat;
+    cv::Mat _dstImgMat;
 };

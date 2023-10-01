@@ -9,11 +9,15 @@ public:
     ImgProvider(Core* imgCorePtr): QQuickImageProvider(QQuickImageProvider::Pixmap), _imgCore(imgCorePtr) {}
 
     QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize) override {
-        return cvtMat2Pixmap(_imgCore->getImgMat());
+        if(id.startsWith("ori"))
+            return cvtMat2Pixmap(_imgCore->getOriImgMat());
+        else
+            return cvtMat2Pixmap(_imgCore->getDstImgMat());
     }
 private:
     QPixmap cvtMat2Pixmap(const cv::Mat& mat) {
         QImage img;
+        std::cout << mat.type();
         switch (mat.type()) {
             case CV_8UC1:
                 img = QImage(mat.data, mat.cols, mat.rows, mat.step, QImage::Format_Grayscale8);

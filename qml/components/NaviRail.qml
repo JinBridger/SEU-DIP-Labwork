@@ -37,6 +37,29 @@ Item {
                     font.pointSize: 18
                 }
             }
+
+            Item {
+                width: 1
+                height: 10
+            }
+
+            ToolButton {
+                hoverEnabled: false
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+                onClicked: {
+                    appView.fourierTrans();
+                    mapImg.reloadImage();
+                }
+                contentItem: Text {
+                    text: MdiFont.Icon.waveform
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
         }
     }
 

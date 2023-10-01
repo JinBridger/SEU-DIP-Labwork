@@ -95,11 +95,10 @@ Rectangle {
                         id: oriMapImg
                         x: oriMapItemArea.width/2-oriMapImg.width/2
                         y: oriMapItemArea.height/2-oriMapImg.height/2
-                        source: "image://imgprovider/myimage"
+                        source: "image://imgprovider/ori"
 
                         function reloadImage() {
                             source += "1"
-                            console.log("test")
                         }
                     }
 
@@ -141,13 +140,10 @@ Rectangle {
                         id: mapImg
                         x: mapItemArea.width/2-mapImg.width/2
                         y: mapItemArea.height/2-mapImg.height/2
-                        // source: "qrc:/res/image/GitHub-Mark.png"
-                        source: "image://imgprovider/image"
+                        source: "image://imgprovider/dst"
 
                         function reloadImage() {
-                            var oldSource = source
-                            source = ""
-                            source = oldSource
+                            source += "1"
                         }
                     }
 
