@@ -19,14 +19,6 @@ public:
         setFlags(Qt::FramelessWindowHint);
     }
 public slots:
-    void startMove() {
-        this->startSystemMove();
-    };
-
-    void startResize(Qt::Edges edges) {
-        this->startSystemResize(edges);
-    }
-
     void quitApplication() {
         QCoreApplication::quit();
     }

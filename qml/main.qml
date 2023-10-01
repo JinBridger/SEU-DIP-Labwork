@@ -53,7 +53,7 @@ Rectangle {
         onPressed: {
             setEdges(mouseX, mouseY);
             if(edges && containsMouse) {
-                appView.startResize(edges);
+                appView.startSystemResize(edges);
             }
         }
     }
@@ -65,7 +65,7 @@ Rectangle {
             id: dragArea
             height: 50
             width: window.width
-            onPressed: { appView.startMove(); }
+            onPressed: { appView.startSystemMove(); }
             TitleBar {
                 id: titleBar
                 width: window.width
