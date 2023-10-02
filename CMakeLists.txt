@@ -23,9 +23,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 find_package(Qt6 COMPONENTS Core Quick REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
+qt_add_big_resources(SOURCES res.qrc)
+
 add_executable(SEU-DIP-Labwork
-    ${SOURCES}
-    qml.qrc
+        ${SOURCES}
+        qml.qrc
         src/Core.hpp
         src/FourierTrans.hpp
         src/ImgProvider.hpp

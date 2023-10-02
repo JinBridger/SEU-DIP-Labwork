@@ -1,9 +1,5 @@
 <RCC>
     <qresource prefix="/">
         <file>qml</file>
-        <file>res/font/sarasa-ui-sc-regular.ttf</file>
-        <file>res/font/sarasa-ui-sc-semibold.ttf</file>
-        <file>res/font/materialdesignicons-webfont.ttf</file>
-        <file>res/image/GitHub-Mark.png</file>
     </qresource>
 </RCC>
