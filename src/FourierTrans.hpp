@@ -54,7 +54,7 @@ public:
 
     [[nodiscard]] cv::Mat customFourierTrans(const cv::Mat& srcImg) {
         // convert source image to double vector
-        auto img = Utils().cvt2dVector(srcImg);
+        auto img = Utils().cvt2dVector<double>(srcImg);
 //        for (int i = 0; i < srcImg.rows; ++i) {
 //            img.emplace_back(srcImg.cols);
 //            for (int j = 0; j < srcImg.cols; ++j) {
