@@ -77,13 +77,29 @@ Item {
                 width: 1
                 height: 10
             }
+
             ToolButton {
                 hoverEnabled: false
                 background: Rectangle {
                     width: parent.width
                     color: "transparent"
                 }
-                onClicked: { appView.getHistogram(); mapImg.reloadImage(); }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
+                        if (mouse.button === Qt.LeftButton) {
+                            appView.getHistogram();
+                            mapImg.reloadImage();
+                        } else if (mouse.button === Qt.RightButton) {
+                            appView.customGetHistogram();
+                            mapImg.reloadImage();
+                        }
+                    }
+                }
+
                 contentItem: Text {
                     text: MdiFont.Icon.chartHistogram
                     color: "gray"

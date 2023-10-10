@@ -43,6 +43,10 @@ public slots:
         _imgCore->setDstImgMat(Histogram().getHistogram(_imgCore->getOriImgMat()));
     }
 
+    void customGetHistogram() {
+        _imgCore->setDstImgMat(Histogram().customGetHistogram(_imgCore->getOriImgMat()));
+    }
+
     void quitApplication() {
         QCoreApplication::quit();
     }

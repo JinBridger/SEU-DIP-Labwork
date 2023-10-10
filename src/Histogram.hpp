@@ -16,7 +16,6 @@ public:
 
         int hist_h = 256;
         int hist_w = 256;
-        int bin_w = hist_w / histsize;
         cv::Mat histImage(hist_h, hist_w, CV_8UC3, cv::Scalar(255, 255, 255));
 
         normalize(histogram, histogram, 0, hist_h - 1, cv::NORM_MINMAX, -1, cv::Mat());
