@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Utils.hpp"
+
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include <vector>
@@ -52,19 +54,19 @@ public:
 
     [[nodiscard]] cv::Mat customFourierTrans(const cv::Mat& srcImg) {
         // convert source image to double vector
-        std::vector<std::vector<double>> img;
-        for (int i = 0; i < srcImg.rows; ++i) {
-            img.emplace_back(srcImg.cols);
-            for (int j = 0; j < srcImg.cols; ++j) {
-                cv::Vec3b pixelColor = srcImg.at<cv::Vec3b>(i, j);
-
-                double B = pixelColor[0];
-                double G = pixelColor[1];
-                double R = pixelColor[2];
-
-                img[i][j] = double(0.299 * R + 0.587 * G + 0.144 * B);
-            }
-        }
+        auto img = Utils().cvt2dVector(srcImg);
+//        for (int i = 0; i < srcImg.rows; ++i) {
+//            img.emplace_back(srcImg.cols);
+//            for (int j = 0; j < srcImg.cols; ++j) {
+//                cv::Vec3b pixelColor = srcImg.at<cv::Vec3b>(i, j);
+//
+//                double B = pixelColor[0];
+//                double G = pixelColor[1];
+//                double R = pixelColor[2];
+//
+//                img[i][j] = double(0.299 * R + 0.587 * G + 0.144 * B);
+//            }
+//        }
 
         // calculate fourier transform
         double maxValue = 0;
