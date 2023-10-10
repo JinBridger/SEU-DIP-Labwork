@@ -128,8 +128,72 @@ public:
 
         cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE();
         clahe->setClipLimit(4);
-        clahe->setTilesGridSize(cv::Size(10, 10));
         clahe->apply(gray, ret);
+
+        return ret;
+    }
+
+    [[nodiscard]] cv::Mat customCLAHE(cv::Mat srcImage) {
+        auto img = Utils().cvt2dVector<int>(srcImage);
+
+        int tileSize = 24;
+        const int clipLimit = 4;
+
+        int height = img.size();
+        int width = img[0].size();
+        std::vector<std::vector<int>> result(height, std::vector<int>(width));
+
+        for (int i = 0; i < height; i += tileSize) {
+            for (int j = 0; j < width; j += tileSize) {
+
+                std::vector<int> histogram(256, 0);
+                int actualTileHeight = std::min(tileSize, height - i);
+                int actualTileWidth = std::min(tileSize, width - j);
+                for (int di = 0; di < actualTileHeight; ++di) {
+                    for (int dj = 0; dj < actualTileWidth; ++dj) {
+                        int pixel = img[i + di][j + dj];
+                        histogram[pixel]++;
+                    }
+                }
+
+                int total = 0;
+                for (int intensity = 0; intensity < 256; ++intensity) {
+                    if (histogram[intensity] > clipLimit) {
+                        total += histogram[intensity] - clipLimit;
+                        histogram[intensity] = clipLimit;
+                    }
+                }
+
+                int increment = total / 256;
+                total -= increment * 256;
+                for (int intensity = 0; intensity < 256; ++intensity) {
+                    histogram[intensity] += increment;
+                }
+                for (int intensity = 0; intensity < total; ++intensity) {
+                    histogram[intensity]++;
+                }
+
+                std::vector<int> cdf(256, 0);
+                cdf[0] = histogram[0];
+                for (int intensity = 1; intensity < 256; ++intensity) {
+                    cdf[intensity] = cdf[intensity - 1] + histogram[intensity];
+                }
+
+                for (int di = 0; di < actualTileHeight; ++di) {
+                    for (int dj = 0; dj < actualTileWidth; ++dj) {
+                        int pixel = img[i + di][j + dj];
+                        result[i + di][j + dj] = cdf[pixel] * 255 / cdf[255];
+                    }
+                }
+            }
+        }
+
+        cv::Mat ret(srcImage.rows, srcImage.cols, CV_8UC1);
+        for(auto i = 0; i < srcImage.rows; ++i) {
+            for(auto j = 0; j < srcImage.cols; ++j) {
+                ret.at<uchar>(i, j) = uchar(result[i][j]);
+            }
+        }
 
         return ret;
     }

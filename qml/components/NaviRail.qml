@@ -164,7 +164,7 @@ Item {
                             appView.CLAHE();
                             mapImg.reloadImage();
                         } else if (mouse.button === Qt.RightButton) {
-                            appView.CLAHE();
+                            appView.customCLAHE();
                             mapImg.reloadImage();
                         }
                     }

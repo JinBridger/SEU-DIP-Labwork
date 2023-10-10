@@ -57,7 +57,10 @@ public slots:
 
     void CLAHE() {
         _imgCore->setDstImgMat(Histogram().CLAHE(_imgCore->getOriImgMat()));
-        qDebug() << "CALLED CLAHE!";
+    }
+
+    void customCLAHE() {
+        _imgCore->setDstImgMat(Histogram().customCLAHE(_imgCore->getOriImgMat()));
     }
 
     void quitApplication() {
