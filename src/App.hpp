@@ -47,6 +47,14 @@ public slots:
         _imgCore->setDstImgMat(Histogram().customGetHistogram(_imgCore->getOriImgMat()));
     }
 
+    void histogramEqualization() {
+        _imgCore->setDstImgMat(Histogram().histogramEqualization(_imgCore->getOriImgMat()));
+    }
+
+    void customHistogramEqualization() {
+        _imgCore->setDstImgMat(Histogram().customHistogramEqualization(_imgCore->getOriImgMat()));
+    }
+
     void quitApplication() {
         QCoreApplication::quit();
     }

@@ -66,7 +66,61 @@ public:
         return histImage;
     }
 
-    [[nodiscard]] cv::Mat histogramEqualization(cv::Mat oriImg);
+    [[nodiscard]] cv::Mat histogramEqualization(cv::Mat srcImage) {
+        cv::Mat ret;
+
+        cv::cvtColor(srcImage, srcImage, cv::COLOR_BGR2GRAY);
+        cv::equalizeHist(srcImage, ret);
+
+        return ret;
+    }
+
+    [[nodiscard]] cv::Mat customHistogramEqualization(cv::Mat srcImage) {
+        auto img = Utils().cvt2dVector<int>(srcImage);
+
+        auto result = std::vector<int>(256, 0);
+
+        for(auto& line: img)
+            for(auto& pixel: line) {
+                int idx = pixel;
+
+                idx = std::max(idx, 0);
+                idx = std::min(idx, 255);
+
+                result[idx]++;
+            }
+
+        // calculate cdf
+        int imgSize = img.size() * img[0].size();
+
+        auto cdf = std::vector<double>(256, 0);
+        cdf[0] = result[0];
+        for(auto i = 1; i < cdf.size(); ++i)
+            cdf[i] = cdf[i - 1] + result[i];
+
+        for(auto& prob: cdf)
+            prob /= double(imgSize);
+
+        // calculate equ
+        auto equ = std::vector<int>(256, 0);
+        for(auto i = 0; i < 256; ++i)
+            equ[i] = std::min(std::max(int(255.0 * cdf[i]), 0), 255);
+
+        for(auto& line: img)
+            for(auto& pixel: line) {
+                pixel = equ[pixel];
+            }
+
+        cv::Mat ret(srcImage.rows, srcImage.cols, CV_8UC1);
+        for(auto i = 0; i < srcImage.rows; ++i) {
+            for(auto j = 0; j < srcImage.cols; ++j) {
+                ret.at<uchar>(i, j) = uchar(img[i][j]);
+            }
+        }
+
+        return ret;
+    }
+
     [[nodiscard]] cv::Mat CLAHE(cv::Mat oriImg);
 private:
 };

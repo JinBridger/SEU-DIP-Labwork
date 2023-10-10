@@ -112,13 +112,29 @@ Item {
                 width: 1
                 height: 10
             }
+
             ToolButton {
                 hoverEnabled: false
                 background: Rectangle {
                     width: parent.width
                     color: "transparent"
                 }
-                onClicked: { appView.loadImg(); oriMapImg.reloadImage();}
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
+                        if (mouse.button === Qt.LeftButton) {
+                            appView.histogramEqualization();
+                            mapImg.reloadImage();
+                        } else if (mouse.button === Qt.RightButton) {
+                            appView.customHistogramEqualization();
+                            mapImg.reloadImage();
+                        }
+                    }
+                }
+
                 contentItem: Text {
                     text: MdiFont.Icon.chartBoxPlusOutline
                     color: "gray"
