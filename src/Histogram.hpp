@@ -121,6 +121,17 @@ public:
         return ret;
     }
 
-    [[nodiscard]] cv::Mat CLAHE(cv::Mat oriImg);
+    [[nodiscard]] cv::Mat CLAHE(cv::Mat srcImage) {
+        cv::Mat gray;
+        cv::cvtColor(srcImage, gray, cv::COLOR_BGR2GRAY);
+        cv::Mat ret;
+
+        cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE();
+        clahe->setClipLimit(4);
+        clahe->setTilesGridSize(cv::Size(10, 10));
+        clahe->apply(gray, ret);
+
+        return ret;
+    }
 private:
 };

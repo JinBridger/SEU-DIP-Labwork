@@ -55,6 +55,11 @@ public slots:
         _imgCore->setDstImgMat(Histogram().customHistogramEqualization(_imgCore->getOriImgMat()));
     }
 
+    void CLAHE() {
+        _imgCore->setDstImgMat(Histogram().CLAHE(_imgCore->getOriImgMat()));
+        qDebug() << "CALLED CLAHE!";
+    }
+
     void quitApplication() {
         QCoreApplication::quit();
     }
