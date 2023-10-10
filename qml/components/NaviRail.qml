@@ -83,7 +83,7 @@ Item {
                     width: parent.width
                     color: "transparent"
                 }
-                onClicked: { appView.test();}
+                onClicked: { appView.getHistogram(); mapImg.reloadImage(); }
                 contentItem: Text {
                     text: MdiFont.Icon.chartHistogram
                     color: "gray"

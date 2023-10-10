@@ -39,12 +39,12 @@ public slots:
         _imgCore->setDstImgMat(FourierTrans().customFourierTrans(_imgCore->getOriImgMat()));
     }
 
-    void quitApplication() {
-        QCoreApplication::quit();
+    void getHistogram() {
+        _imgCore->setDstImgMat(Histogram().getHistogram(_imgCore->getOriImgMat()));
     }
 
-    void test() {
-        Histogram().getHistogram(cv::imread("C:/Users/26354/Desktop/avatar.png"));
+    void quitApplication() {
+        QCoreApplication::quit();
     }
 
 private:

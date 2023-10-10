@@ -24,11 +24,10 @@ public:
             line(histImage, cv::Point((i - 1) * bin_w, hist_h - cvRound(histogram.at<float>(i - 1))),
                  cv::Point((i)*bin_w, hist_h - cvRound(histogram.at<float>(i))), cv::Scalar(0, 0, 0), 2, 8, 0);
         }
-        imshow("histImage", histImage);
 
-        cv::waitKey(0);
         return histImage;
     }
+
     [[nodiscard]] cv::Mat histogramEqualization(cv::Mat oriImg);
     [[nodiscard]] cv::Mat CLAHE(cv::Mat oriImg);
 private:
