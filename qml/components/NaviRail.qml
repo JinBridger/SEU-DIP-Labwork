@@ -72,6 +72,63 @@ Item {
                     font.pointSize: 18
                 }
             }
+
+            Item {
+                width: 1
+                height: 10
+            }
+            ToolButton {
+                hoverEnabled: false
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+                onClicked: { appView.test();}
+                contentItem: Text {
+                    text: MdiFont.Icon.chartHistogram
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
+
+            Item {
+                width: 1
+                height: 10
+            }
+            ToolButton {
+                hoverEnabled: false
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+                onClicked: { appView.loadImg(); oriMapImg.reloadImage();}
+                contentItem: Text {
+                    text: MdiFont.Icon.chartBoxPlusOutline
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
+
+            Item {
+                width: 1
+                height: 10
+            }
+            ToolButton {
+                hoverEnabled: false
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+                onClicked: { appView.loadImg(); oriMapImg.reloadImage();}
+                contentItem: Text {
+                    text: MdiFont.Icon.imageAutoAdjust
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
         }
     }
 

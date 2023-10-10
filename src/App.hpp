@@ -2,6 +2,7 @@
 
 #include "Core.hpp"
 #include "FourierTrans.hpp"
+#include "Histogram.hpp"
 #include "ImgProvider.hpp"
 
 #include <QCoreApplication>
@@ -40,6 +41,10 @@ public slots:
 
     void quitApplication() {
         QCoreApplication::quit();
+    }
+
+    void test() {
+        Histogram().getHistogram(cv::imread("C:/Users/26354/Desktop/avatar.png"));
     }
 
 private:
