@@ -56,11 +56,11 @@ public slots:
     }
 
     void CLAHE() {
-        _imgCore->setDstImgMat(Histogram().CLAHE(_imgCore->getOriImgMat()));
+        _imgCore->setDstImgMat(Histogram().clahe(_imgCore->getOriImgMat()));
     }
 
     void customCLAHE() {
-        _imgCore->setDstImgMat(Histogram().customCLAHE(_imgCore->getOriImgMat()));
+        _imgCore->setDstImgMat(Histogram().customClahe(_imgCore->getOriImgMat()));
     }
 
     void quitApplication() {
