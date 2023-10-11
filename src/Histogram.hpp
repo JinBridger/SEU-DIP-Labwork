@@ -131,7 +131,7 @@ public:
 
         int tileSizeX = img[0].size() / 8;
         int tileSizeY = img.size() / 8;
-        const int clipLimit = 100;
+        const int clipLimit = 200;
 
         int height = img.size();
         int width = img[0].size();
