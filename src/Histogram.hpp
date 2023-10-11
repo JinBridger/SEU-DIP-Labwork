@@ -30,17 +30,7 @@ public:
     [[nodiscard]] cv::Mat customGetHistogram(cv::Mat srcImage) {
         // custom draw histogram
         auto img = Utils().cvt2dVector<int>(srcImage);
-        auto result = std::vector<int>(256, 0);
-
-        for(auto& line: img)
-            for(auto& pixel: line) {
-                int idx = pixel;
-
-                idx = std::max(idx, 0);
-                idx = std::min(idx, 255);
-
-                result[idx]++;
-            }
+        auto result = getHistogramValue(img);
 
         // normalization
         int maxVal = 0;
@@ -134,55 +124,35 @@ public:
     }
 
     [[nodiscard]] cv::Mat customCLAHE(cv::Mat srcImage) {
-        auto img = Utils().cvt2dVector<int>(srcImage);
+        cv::Mat ext;
+        cv::copyMakeBorder(srcImage, ext, 0, 8 - (srcImage.size().height % 8), 0, 8 - (srcImage.size().width % 8), cv::BORDER_REFLECT_101);
 
-        int tileSize = 24;
-        const int clipLimit = 4;
+        auto img = Utils().cvt2dVector<int>(ext);
+
+        int tileSizeX = img[0].size() / 8;
+        int tileSizeY = img.size() / 8;
+        const int clipLimit = 100;
 
         int height = img.size();
         int width = img[0].size();
         std::vector<std::vector<int>> result(height, std::vector<int>(width));
 
-        for (int i = 0; i < height; i += tileSize) {
-            for (int j = 0; j < width; j += tileSize) {
-
-                std::vector<int> histogram(256, 0);
-                int actualTileHeight = std::min(tileSize, height - i);
-                int actualTileWidth = std::min(tileSize, width - j);
-                for (int di = 0; di < actualTileHeight; ++di) {
-                    for (int dj = 0; dj < actualTileWidth; ++dj) {
-                        int pixel = img[i + di][j + dj];
-                        histogram[pixel]++;
+        for(int i = 0; i < 8; ++i) {
+            for(int j = 0; j < 8; ++j) {
+                // copy the part
+                auto part = std::vector<std::vector<int>>(tileSizeY, std::vector<int>(tileSizeX));
+                int partY = i * tileSizeY;
+                int partX = j * tileSizeX;
+                for(int curY = 0; curY < tileSizeY; ++curY) {
+                    for(int curX = 0; curX < tileSizeX; ++curX) {
+                        part[curY][curX] = img[partY + curY][partX + curX];
                     }
                 }
 
-                int total = 0;
-                for (int intensity = 0; intensity < 256; ++intensity) {
-                    if (histogram[intensity] > clipLimit) {
-                        total += histogram[intensity] - clipLimit;
-                        histogram[intensity] = clipLimit;
-                    }
-                }
-
-                int increment = total / 256;
-                total -= increment * 256;
-                for (int intensity = 0; intensity < 256; ++intensity) {
-                    histogram[intensity] += increment;
-                }
-                for (int intensity = 0; intensity < total; ++intensity) {
-                    histogram[intensity]++;
-                }
-
-                std::vector<int> cdf(256, 0);
-                cdf[0] = histogram[0];
-                for (int intensity = 1; intensity < 256; ++intensity) {
-                    cdf[intensity] = cdf[intensity - 1] + histogram[intensity];
-                }
-
-                for (int di = 0; di < actualTileHeight; ++di) {
-                    for (int dj = 0; dj < actualTileWidth; ++dj) {
-                        int pixel = img[i + di][j + dj];
-                        result[i + di][j + dj] = cdf[pixel] * 255 / cdf[255];
+                auto ret = handleCLAHEpart(part, clipLimit);
+                for(int curY = 0; curY < tileSizeY; ++curY) {
+                    for(int curX = 0; curX < tileSizeX; ++curX) {
+                         result[partY + curY][partX + curX] = ret[curY][curX];
                     }
                 }
             }
@@ -198,4 +168,65 @@ public:
         return ret;
     }
 private:
+    std::vector<int> getHistogramValue(std::vector<std::vector<int>> src) {
+        auto result = std::vector<int>(256, 0);
+
+        for(auto& line: src)
+            for(auto& pixel: line) {
+                int idx = pixel;
+
+                idx = std::max(idx, 0);
+                idx = std::min(idx, 255);
+
+                result[idx]++;
+            }
+
+        return result;
+    }
+
+    std::vector<std::vector<int>> handleCLAHEpart(std::vector<std::vector<int>> src, int clipLimit) {
+        auto hist = getHistogramValue(src);
+
+        int clipped = 0;
+        for(auto i = 0; i < 256; ++i)
+            if(hist[i] > clipLimit) {
+                clipped += hist[i] - clipLimit;
+                hist[i] = clipLimit;
+            }
+
+        int redistBatch = clipped / 256;
+        int residual = clipped - redistBatch * 256;
+
+        for(auto& val : hist)
+            val += redistBatch;
+
+        if(residual) {
+            int residualStep = std::max(256 / residual, 1);
+            for(auto i = 0; i < 256 && residual > 0; i += residualStep, residual--)
+                hist[i]++;
+        }
+
+        // calculate cdf
+        int imgSize = src.size() * src[0].size();
+
+        auto cdf = std::vector<double>(256, 0);
+        cdf[0] = hist[0];
+        for(auto i = 1; i < cdf.size(); ++i)
+            cdf[i] = cdf[i - 1] + hist[i];
+
+        for(auto& prob: cdf)
+            prob /= double(imgSize);
+
+        // calculate equ
+        auto equ = std::vector<int>(256, 0);
+        for(auto i = 0; i < 256; ++i)
+            equ[i] = std::min(std::max(int(255.0 * cdf[i]), 0), 255);
+
+        for(auto& line: src)
+            for(auto& pixel: line) {
+                pixel = equ[pixel];
+            }
+
+        return src;
+    }
 };
