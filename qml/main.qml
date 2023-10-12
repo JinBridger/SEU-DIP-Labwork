@@ -105,8 +105,8 @@ Rectangle {
                     Item {
                         id: oriHistogram
                         Rectangle {
-                            width: 512
-                            height: 256
+                            width: 256
+                            height: 128
                             color: "black"
                             opacity: 0.4
                             z: 100
@@ -172,8 +172,8 @@ Rectangle {
                     Item {
                         id: distHistogram
                         Rectangle {
-                            width: 512
-                            height: 256
+                            width: 256
+                            height: 128
                             color: "black"
                             opacity: 0.4
                             z: 100
