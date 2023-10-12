@@ -24,7 +24,6 @@ Item {
                 height: 10
             }
             ToolButton {
-                hoverEnabled: false
                 background: Rectangle {
                     width: parent.width
                     color: "transparent"
@@ -36,6 +35,9 @@ Item {
                     font.family: materialIcon.font.family
                     font.pointSize: 18
                 }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Load Image")
             }
 
             Item {
@@ -44,7 +46,6 @@ Item {
             }
 
             ToolButton {
-                hoverEnabled: false
                 background: Rectangle {
                     width: parent.width
                     color: "transparent"
@@ -67,6 +68,9 @@ Item {
                     }
                 }
 
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Fourier Transform\n  · Left click for OpenCV version\n  · Right click for self-made version")
+
                 contentItem: Text {
                     text: MdiFont.Icon.waveform
                     color: "gray"
@@ -81,7 +85,6 @@ Item {
             }
 
             ToolButton {
-                hoverEnabled: false
                 background: Rectangle {
                     width: parent.width
                     color: "transparent"
@@ -104,6 +107,9 @@ Item {
                     }
                 }
 
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Histogram Equalization\n  · Left click for OpenCV version\n  · Right click for self-made version")
+
                 contentItem: Text {
                     text: MdiFont.Icon.chartBoxPlusOutline
                     color: "gray"
@@ -118,7 +124,6 @@ Item {
             }
 
             ToolButton {
-                hoverEnabled: false
                 background: Rectangle {
                     width: parent.width
                     color: "transparent"
@@ -140,6 +145,10 @@ Item {
                         }
                     }
                 }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("CLAHE\n  · Left click for OpenCV version\n  · Right click for self-made version")
+
 
                 contentItem: Text {
                     text: MdiFont.Icon.imageAutoAdjust
