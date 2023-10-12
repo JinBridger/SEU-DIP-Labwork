@@ -29,7 +29,7 @@ Item {
                     width: parent.width
                     color: "transparent"
                 }
-                onClicked: { appView.loadImg(); oriMapImg.reloadImage();}
+                onClicked: { appView.loadImg(); oriMapImg.reloadImage(); oriMapImgHist.reloadImage(); }
                 contentItem: Text {
                     text: MdiFont.Icon.folder
                     color: "gray"
@@ -58,9 +58,11 @@ Item {
                         if (mouse.button === Qt.LeftButton) {
                             appView.fourierTrans();
                             mapImg.reloadImage();
+                            mapImgHist.reloadImage();
                         } else if (mouse.button === Qt.RightButton) {
                             appView.customFourierTrans();
                             mapImg.reloadImage();
+                            mapImgHist.reloadImage();
                         }
                     }
                 }
@@ -91,46 +93,13 @@ Item {
 
                     onClicked: {
                         if (mouse.button === Qt.LeftButton) {
-                            appView.getHistogram();
-                            mapImg.reloadImage();
-                        } else if (mouse.button === Qt.RightButton) {
-                            appView.customGetHistogram();
-                            mapImg.reloadImage();
-                        }
-                    }
-                }
-
-                contentItem: Text {
-                    text: MdiFont.Icon.chartHistogram
-                    color: "gray"
-                    font.family: materialIcon.font.family
-                    font.pointSize: 18
-                }
-            }
-
-            Item {
-                width: 1
-                height: 10
-            }
-
-            ToolButton {
-                hoverEnabled: false
-                background: Rectangle {
-                    width: parent.width
-                    color: "transparent"
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    acceptedButtons: Qt.AllButtons
-
-                    onClicked: {
-                        if (mouse.button === Qt.LeftButton) {
                             appView.histogramEqualization();
                             mapImg.reloadImage();
+                            mapImgHist.reloadImage();
                         } else if (mouse.button === Qt.RightButton) {
                             appView.customHistogramEqualization();
                             mapImg.reloadImage();
+                            mapImgHist.reloadImage();
                         }
                     }
                 }
@@ -163,9 +132,11 @@ Item {
                         if (mouse.button === Qt.LeftButton) {
                             appView.CLAHE();
                             mapImg.reloadImage();
+                            mapImgHist.reloadImage();
                         } else if (mouse.button === Qt.RightButton) {
                             appView.customCLAHE();
                             mapImg.reloadImage();
+                            mapImgHist.reloadImage();
                         }
                     }
                 }

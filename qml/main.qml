@@ -102,6 +102,28 @@ Rectangle {
                         }
                     }
 
+                    Item {
+                        id: oriHistogram
+                        Rectangle {
+                            width: 512
+                            height: 256
+                            color: "black"
+                            opacity: 0.4
+                            z: 100
+
+                            Image {
+                                id: oriMapImgHist
+                                source: "image://imgprovider/hist_ori"
+                                anchors.fill: parent
+                                fillMode: Image.Stretch
+
+                                function reloadImage() {
+                                    source += "1"
+                                }
+                            }
+                        }
+                    }
+
                     MouseArea {
                         id: oriMapDragArea
                         width: oriMapImg.width * oriMapImg.scale
@@ -144,6 +166,28 @@ Rectangle {
 
                         function reloadImage() {
                             source += "1"
+                        }
+                    }
+
+                    Item {
+                        id: distHistogram
+                        Rectangle {
+                            width: 512
+                            height: 256
+                            color: "black"
+                            opacity: 0.4
+                            z: 100
+
+                            Image {
+                                id: mapImgHist
+                                source: "image://imgprovider/hist_dst"
+                                anchors.fill: parent
+                                fillMode: Image.Stretch
+
+                                function reloadImage() {
+                                    source += "1"
+                                }
+                            }
                         }
                     }
 

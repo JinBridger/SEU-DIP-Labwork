@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core.hpp"
+#include "Histogram.hpp"
 
 #include <QQuickImageProvider>
 #include <opencv2/opencv.hpp>
@@ -13,8 +14,13 @@ public:
     QPixmap requestPixmap(const QString& id, QSize* size, const QSize& requestedSize) override {
         if (id.startsWith("ori"))
             return cvtMat2Pixmap(_imgCore->getOriImgMat());
-        else
+        if (id.startsWith("dst"))
             return cvtMat2Pixmap(_imgCore->getDstImgMat());
+
+        if (id.startsWith("hist_ori"))
+            return cvtMat2Pixmap(Histogram().getHistogram(_imgCore->getOriImgMat()));
+        if (id.startsWith("hist_dst"))
+            return cvtMat2Pixmap(Histogram().getHistogram(_imgCore->getDstImgMat()));
     }
 
 private:

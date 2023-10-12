@@ -5,9 +5,12 @@
 class Histogram {
 public:
     [[nodiscard]] cv::Mat getHistogram(cv::Mat srcImage) {
+        if(srcImage.empty()) return srcImage;
+
         // using opencv to draw histogram
         cv::Mat histogram;
-        cv::cvtColor(srcImage, srcImage, cv::COLOR_BGR2GRAY);
+        if(srcImage.type() == CV_8UC3)
+            cv::cvtColor(srcImage, srcImage, cv::COLOR_BGR2GRAY);
 
         int histsize = 256;
         float ranges[] = { 0,256 };
@@ -15,19 +18,23 @@ public:
         calcHist(&srcImage, 1, 0, cv::Mat(), histogram, 1, &histsize, &histRanges, true, false);
 
         int hist_h = 256;
-        int hist_w = 256;
-        cv::Mat histImage(hist_h, hist_w, CV_8UC3, cv::Scalar(255, 255, 255));
+        int hist_w = 512;
+        cv::Mat histImage(hist_h, hist_w, CV_8UC4, cv::Scalar(255, 255, 255, 0));
 
         normalize(histogram, histogram, 0, hist_h - 1, cv::NORM_MINMAX, -1, cv::Mat());
 
-        for(auto i = 0; i < histsize; ++i)
-            for(auto j = hist_h - 1 - cvRound(histogram.at<float>(i)); j < hist_h; ++j)
-                histImage.at<cv::Vec3b>(j, i) = cv::Vec3b(0, 0, 0);
+        for(auto i = 0; i < hist_w; i += 2)
+            for(auto j = hist_h - 1 - cvRound(histogram.at<float>(i / 2)); j < hist_h; ++j) {
+                histImage.at<cv::Vec4b>(j, i) = cv::Vec4b(255, 255, 255, 255);
+                histImage.at<cv::Vec4b>(j, i + 1) = cv::Vec4b(255, 255, 255, 255);
+            }
 
         return histImage;
     }
 
     [[nodiscard]] cv::Mat customGetHistogram(cv::Mat srcImage) {
+        if(srcImage.empty()) return srcImage;
+
         // custom draw histogram
         auto img = Utils().cvt2dVector<int>(srcImage);
         auto result = getHistogramValue(img);
@@ -46,12 +53,14 @@ public:
         }
 
         int hist_h = 256;
-        int hist_w = 256;
-        cv::Mat histImage(hist_h, hist_w, CV_8UC3, cv::Scalar(255, 255, 255));
+        int hist_w = 512;
+        cv::Mat histImage(hist_h, hist_w, CV_8UC4, cv::Scalar(255, 255, 255, 0));
 
-        for(auto i = 0; i < result.size(); ++i)
-            for(auto j = hist_h - 1 - result[i]; j < hist_h; ++j)
-                histImage.at<cv::Vec3b>(j, i) = cv::Vec3b(0, 0, 0);
+        for(auto i = 0; i < hist_w; i += 2)
+            for(auto j = hist_h - 1 - result[i / 2]; j < hist_h; ++j) {
+                histImage.at<cv::Vec4b>(j, i) = cv::Vec4b(255, 255, 255, 255);
+                histImage.at<cv::Vec4b>(j, i + 1) = cv::Vec4b(255, 255, 255, 255);
+            }
 
         return histImage;
     }
