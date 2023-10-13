@@ -6,8 +6,9 @@ class Utils {
 public:
     template<typename T>
     [[nodiscard]] std::vector<std::vector<T>> cvt2dVector(const cv::Mat& srcImg) {
-        cv::Mat grayImg;
-        cv::cvtColor(srcImg, grayImg, cv::COLOR_BGR2GRAY);
+        cv::Mat grayImg = srcImg;
+        if(srcImg.type() == CV_8UC3)
+            cv::cvtColor(srcImg, grayImg, cv::COLOR_BGR2GRAY);
 
         std::vector<std::vector<T>> img;
         for (int i = 0; i < grayImg.rows; ++i) {

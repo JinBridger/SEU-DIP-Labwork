@@ -18,9 +18,9 @@ public:
             return cvtMat2Pixmap(_imgCore->getDstImgMat());
 
         if (id.startsWith("hist_ori"))
-            return cvtMat2Pixmap(Histogram().getHistogram(_imgCore->getOriImgMat()));
+            return cvtMat2Pixmap(Histogram().customGetHistogram(_imgCore->getOriImgMat()));
         if (id.startsWith("hist_dst"))
-            return cvtMat2Pixmap(Histogram().getHistogram(_imgCore->getDstImgMat()));
+            return cvtMat2Pixmap(Histogram().customGetHistogram(_imgCore->getDstImgMat()));
     }
 
 private:
