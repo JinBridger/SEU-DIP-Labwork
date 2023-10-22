@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
+SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2")
 
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
@@ -34,6 +35,7 @@ add_executable(SEU-DIP-Labwork
         src/App.hpp
         src/Histogram.hpp
         src/Utils.hpp
+        src/Noise.hpp
 )
 
 target_link_libraries(${PROJECT_NAME} Qt6::Core Qt6::Quick Qt6::Widgets ${OpenCV_LIBS})

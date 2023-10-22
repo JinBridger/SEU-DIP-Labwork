@@ -3,6 +3,7 @@
 .idea
 .xmake
 cmake-build-debug
+cmake-build-release
 cmake-build-debug-visual-studio
 build
 qml_rc.py

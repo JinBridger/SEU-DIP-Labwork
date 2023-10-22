@@ -21,4 +21,16 @@ public:
         }
         return img;
     }
+
+    template<typename T>
+    [[nodiscard]] cv::Mat cvtCvMat(const std::vector<std::vector<T>>& vec) {
+        cv::Mat ret(vec.size(), vec[0].size(), CV_8UC1);
+        for(auto i = 0; i < vec.size(); ++i) {
+            for(auto j = 0; j < vec[0].size(); ++j) {
+                ret.at<uchar>(i, j) = uchar(vec[i][j]);
+            }
+        }
+
+        return ret;
+    }
 };

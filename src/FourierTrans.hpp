@@ -10,7 +10,8 @@
 class FourierTrans {
 public:
     [[nodiscard]] cv::Mat fourierTrans(cv::Mat srcImage) {
-        cv::cvtColor(srcImage, srcImage, cv::COLOR_BGR2GRAY);
+        if(srcImage.type() == CV_8UC3)
+            cv::cvtColor(srcImage, srcImage, cv::COLOR_BGR2GRAY);
 
         cv::Mat planes[] = { cv::Mat_<float>(srcImage), cv::Mat::zeros(srcImage.size(), CV_32F) };
 

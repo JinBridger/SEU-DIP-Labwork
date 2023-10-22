@@ -56,6 +56,41 @@ Item {
                     acceptedButtons: Qt.AllButtons
 
                     onClicked: {
+                        appView.swapImg();
+                        mapImg.reloadImage();
+                        mapImgHist.reloadImage();
+                        oriMapImg.reloadImage();
+                        oriMapImgHist.reloadImage();
+                    }
+                }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Swap left and right image")
+
+                contentItem: Text {
+                    text: MdiFont.Icon.shuffle
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
+
+            Item {
+                width: 1
+                height: 10
+            }
+
+            ToolButton {
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
                         if (mouse.button === Qt.LeftButton) {
                             appView.fourierTrans();
                             mapImg.reloadImage();
@@ -152,6 +187,182 @@ Item {
 
                 contentItem: Text {
                     text: MdiFont.Icon.imageAutoAdjust
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
+
+            Item {
+                width: 1
+                height: 10
+            }
+
+            ToolButton {
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
+                        if (mouse.button === Qt.LeftButton) {
+                            appView.gaussianNoise();
+                            mapImg.reloadImage();
+                            mapImgHist.reloadImage();
+                        } else if (mouse.button === Qt.RightButton) {
+                            appView.saltPepperNoise();
+                            mapImg.reloadImage();
+                            mapImgHist.reloadImage();
+                        }
+                    }
+                }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Add Noise\n  · Left click for gaussian noise\n  · Right click for salt & pepper noise")
+
+
+                contentItem: Text {
+                    text: MdiFont.Icon.checkerboardPlus
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
+
+            Item {
+                width: 1
+                height: 10
+            }
+
+            ToolButton {
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
+                        appView.medianFilter();
+                        mapImg.reloadImage();
+                        mapImgHist.reloadImage();
+                    }
+                }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Median Filter")
+
+
+                contentItem: Text {
+                    text: MdiFont.Icon.alphaMBoxOutline
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
+
+            Item {
+                width: 1
+                height: 10
+            }
+
+            ToolButton {
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
+                        appView.averagingFilter();
+                        mapImg.reloadImage();
+                        mapImgHist.reloadImage();
+                    }
+                }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Averaging Filter")
+
+
+                contentItem: Text {
+                    text: MdiFont.Icon.alphaABoxOutline
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
+
+            Item {
+                width: 1
+                height: 10
+            }
+
+            ToolButton {
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
+                        appView.adaptiveMedianFilter();
+                        mapImg.reloadImage();
+                        mapImgHist.reloadImage();
+                    }
+                }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Adaptive Median Filter")
+
+
+                contentItem: Text {
+                    text: MdiFont.Icon.alphaDBoxOutline
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
+
+            Item {
+                width: 1
+                height: 10
+            }
+
+            ToolButton {
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
+                        appView.nonLocalMeansFilter();
+                        mapImg.reloadImage();
+                        mapImgHist.reloadImage();
+                    }
+                }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Nonlocal Means")
+
+
+                contentItem: Text {
+                    text: MdiFont.Icon.alphaNBoxOutline
                     color: "gray"
                     font.family: materialIcon.font.family
                     font.pointSize: 18

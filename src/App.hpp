@@ -4,6 +4,7 @@
 #include "FourierTrans.hpp"
 #include "Histogram.hpp"
 #include "ImgProvider.hpp"
+#include "Noise.hpp"
 
 #include <QCoreApplication>
 #include <QFileDialog>
@@ -22,7 +23,7 @@ public:
         setSource(QUrl("qrc:/qml/main.qml"));
         setResizeMode(QQuickView::SizeRootObjectToView);
         rootContext()->setContextProperty("appView", this);
-        setFlags(Qt::FramelessWindowHint);
+        setFlags(Qt::FramelessWindowHint | Qt::Window);
     }
 public slots:
     void loadImg() {
@@ -30,6 +31,12 @@ public slots:
         if (imgPath != "")
             _imgCore->loadImg(imgPath.toStdString());
     };
+
+    void swapImg() {
+        auto tmpImg = _imgCore->getDstImgMat();
+        _imgCore->setDstImgMat(_imgCore->getOriImgMat());
+        _imgCore->setOriImgMat(tmpImg);
+    }
 
     void fourierTrans() {
         _imgCore->setDstImgMat(FourierTrans().fourierTrans(_imgCore->getOriImgMat()));
@@ -61,6 +68,30 @@ public slots:
 
     void customCLAHE() {
         _imgCore->setDstImgMat(Histogram().customClahe(_imgCore->getOriImgMat()));
+    }
+
+    void gaussianNoise() {
+        _imgCore->setDstImgMat(Noise().gaussianNoise(_imgCore->getOriImgMat()));
+    }
+
+    void saltPepperNoise() {
+        _imgCore->setDstImgMat(Noise().saltPepperNoise(_imgCore->getOriImgMat()));
+    }
+
+    void medianFilter() {
+        _imgCore->setDstImgMat(Noise().medianFilter(_imgCore->getOriImgMat()));
+    }
+
+    void adaptiveMedianFilter() {
+        _imgCore->setDstImgMat(Noise().adaptiveMedianFilter(_imgCore->getOriImgMat()));
+    }
+
+    void averagingFilter() {
+        _imgCore->setDstImgMat(Noise().averagingFilter(_imgCore->getOriImgMat()));
+    }
+
+    void nonLocalMeansFilter() {
+        _imgCore->setDstImgMat(Noise().nonLocalMeansFilter(_imgCore->getOriImgMat()));
     }
 
     void quitApplication() {

@@ -16,6 +16,10 @@ public:
         return _oriImgMat;
     }
 
+    void setOriImgMat(cv::Mat img) {
+        _oriImgMat = img;
+    }
+
     [[nodiscard]] cv::Mat getDstImgMat() const {
         return _dstImgMat;
     }
