@@ -2,17 +2,27 @@
 
 #include <opencv2/opencv.hpp>
 #include <cstdlib>
+#include <random>
+#include <chrono>
 
 class Noise {
 public:
     [[nodiscard]] cv::Mat gaussianNoise(cv::Mat srcImg) {
-        cv::cvtColor(srcImg, srcImg, cv::COLOR_BGR2GRAY);
-        cv::Mat noise = cv::Mat::zeros(srcImg.rows, srcImg.cols, srcImg.type());
+        auto img = Utils().cvt2dVector<int>(srcImg);
 
-        cv::RNG rng;
-        rng.fill(noise, cv::RNG::NORMAL, 10, 20);
+        unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+        std::default_random_engine generator(seed);
+        std::normal_distribution<double> distribution(10, 20);
 
-        return srcImg + noise;
+        for(auto& line: img) {
+            for(auto& pixel: line) {
+                pixel = pixel + int(distribution(generator));
+                if(pixel > 255) pixel = 255;
+                if(pixel < 0) pixel = 0;
+            }
+        }
+
+        return Utils().cvtCvMat(img);
     }
 
     [[nodiscard]] cv::Mat saltPepperNoise(cv::Mat srcImg) {
