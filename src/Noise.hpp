@@ -12,7 +12,7 @@ public:
 
         unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
         std::default_random_engine generator(seed);
-        std::normal_distribution<double> distribution(10, 20);
+        std::normal_distribution<double> distribution(0, 20);
 
         for(auto& line: img) {
             for(auto& pixel: line) {
