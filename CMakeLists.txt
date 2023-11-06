@@ -36,6 +36,7 @@ add_executable(SEU-DIP-Labwork
         src/Histogram.hpp
         src/Utils.hpp
         src/Noise.hpp
+        src/Enhancement.hpp
 )
 
 target_link_libraries(${PROJECT_NAME} Qt6::Core Qt6::Quick Qt6::Widgets ${OpenCV_LIBS})

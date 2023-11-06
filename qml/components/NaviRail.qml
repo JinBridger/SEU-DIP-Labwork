@@ -368,6 +368,108 @@ Item {
                     font.pointSize: 18
                 }
             }
+
+            Item {
+                width: 1
+                height: 10
+            }
+
+            ToolButton {
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
+                        appView.gaussianBlur();
+                        mapImg.reloadImage();
+                        mapImgHist.reloadImage();
+                    }
+                }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Gaussian Blur")
+
+
+                contentItem: Text {
+                    text: MdiFont.Icon.blur
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
+
+            Item {
+                width: 1
+                height: 10
+            }
+
+            ToolButton {
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
+                        appView.laplaceSharpening();
+                        mapImg.reloadImage();
+                        mapImgHist.reloadImage();
+                    }
+                }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Laplace Sharpening")
+
+
+                contentItem: Text {
+                    text: MdiFont.Icon.multiplicationBox
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
+
+            Item {
+                width: 1
+                height: 10
+            }
+
+            ToolButton {
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
+                        appView.unsharpMasking();
+                        mapImg.reloadImage();
+                        mapImgHist.reloadImage();
+                    }
+                }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("USM Sharpening")
+
+
+                contentItem: Text {
+                    text: MdiFont.Icon.knife
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
         }
     }
 

@@ -5,6 +5,7 @@
 #include "Histogram.hpp"
 #include "ImgProvider.hpp"
 #include "Noise.hpp"
+#include "Enhancement.hpp"
 
 #include <QCoreApplication>
 #include <QFileDialog>
@@ -92,6 +93,18 @@ public slots:
 
     void nonLocalMeansFilter() {
         _imgCore->setDstImgMat(Noise().nonLocalMeansFilter(_imgCore->getOriImgMat()));
+    }
+
+    void gaussianBlur() {
+        _imgCore->setDstImgMat(Enhancement().gaussianFilter(_imgCore->getOriImgMat()));
+    }
+
+    void unsharpMasking() {
+        _imgCore->setDstImgMat(Enhancement().unsharpMasking(_imgCore->getOriImgMat()));
+    }
+
+    void laplaceSharpening() {
+        _imgCore->setDstImgMat(Enhancement().laplaceSharpening(_imgCore->getOriImgMat()));
     }
 
     void quitApplication() {
