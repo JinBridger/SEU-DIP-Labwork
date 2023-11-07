@@ -93,6 +93,10 @@ public slots:
         _imgCore->setDstImgMat(Noise().adaptiveMedianFilter(_imgCore->getOriImgMat()));
     }
 
+    void adaptiveLocalFilter() {
+        _imgCore->setDstImgMat(Noise().adaptiveLocalFilter(_imgCore->getOriImgMat()));
+    }
+
     void averagingFilter() {
         _imgCore->setDstImgMat(Noise().averagingFilter(_imgCore->getOriImgMat()));
     }

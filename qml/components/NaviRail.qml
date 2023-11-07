@@ -382,6 +382,40 @@ Item {
                     acceptedButtons: Qt.AllButtons
 
                     onClicked: {
+                        appView.adaptiveLocalFilter();
+                        mapImg.reloadImage();
+                        mapImgHist.reloadImage();
+                    }
+                }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Adaptive Local Noise Reduction Filter")
+
+
+                contentItem: Text {
+                    text: MdiFont.Icon.alphaLBoxOutline
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
+
+            Item {
+                width: 1
+                height: 10
+            }
+
+            ToolButton {
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
                         appView.nonLocalMeansFilter();
                         mapImg.reloadImage();
                         mapImgHist.reloadImage();

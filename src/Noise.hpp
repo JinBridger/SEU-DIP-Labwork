@@ -107,6 +107,39 @@ public:
         return Utils().cvtCvMat(res);
     }
 
+    [[nodiscard]] cv::Mat adaptiveLocalFilter(cv::Mat srcImg, double globalVar = 20.0, int halfSize = 2) {
+        int padding = halfSize;
+        cv::Mat ext;
+        cv::copyMakeBorder(srcImg, ext, padding, padding, padding, padding, cv::BORDER_REFLECT_101);
+        auto img = Utils().cvt2dVector<double>(ext);
+        auto ret = Utils().cvt2dVector<int>(srcImg);
+
+        for(auto i = padding; i < img.size() - padding; ++i) {
+            for(auto j = padding; j < img[0].size() - padding; ++j) {
+                double localMean = 0;
+                double localSigma = 0;
+
+                for(auto di = -padding; di <= padding; ++di)
+                    for(auto dj = -padding; dj <= padding; ++dj)
+                        localMean += img[i + di][j + dj];
+
+                localMean /= (halfSize * 2 + 1) * (halfSize * 2 + 1);
+
+                for(auto di = -padding; di <= padding; ++di)
+                    for(auto dj = -padding; dj <= padding; ++dj)
+                        localSigma += (img[i + di][j + dj] - localMean) * (img[i + di][j + dj] - localMean);
+
+                localSigma /= (halfSize * 2 + 1) * (halfSize * 2 + 1);
+                localSigma = sqrt(localSigma);
+
+                ret[i - padding][j - padding] = int(img[i][j] - (globalVar * globalVar) / (localSigma * localSigma) * (img[i][j] - localMean));
+                ret[i - padding][j - padding] = std::max(std::min(ret[i - padding][j - padding], 255), 0);
+            }
+        }
+
+        return Utils().cvtCvMat(ret);
+    }
+
     [[nodiscard]] cv::Mat averagingFilter(cv::Mat srcImg, int window = 3) {
         auto padding = (window - 1) / 2;
         cv::Mat ext;
