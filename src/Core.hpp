@@ -34,6 +34,10 @@ public:
         _dstImgMat = cv::Mat();
     }
 
+    void saveImg(std::string save_path) {
+        cv::imwrite(save_path, _dstImgMat);
+    }
+
 private:
     std::string _imgPath;
     cv::Mat     _oriImgMat;

@@ -56,6 +56,37 @@ Item {
                     acceptedButtons: Qt.AllButtons
 
                     onClicked: {
+                        appView.saveImg();
+                    }
+                }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Save Image")
+
+                contentItem: Text {
+                    text: MdiFont.Icon.contentSave
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
+
+            Item {
+                width: 1
+                height: 10
+            }
+
+            ToolButton {
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
                         appView.swapImg();
                         mapImg.reloadImage();
                         mapImgHist.reloadImage();

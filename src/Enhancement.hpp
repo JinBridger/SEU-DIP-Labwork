@@ -13,9 +13,9 @@ public:
         auto ret = Utils().cvt2dVector<int>(srcImg);
 
         double laplaceMat[3][3] = {
-                {+0, -1, +0},
-                {-1, +4, -1},
-                {+0, -1, +0}};
+                {+0, +1, +0},
+                {+1, -4, +1},
+                {+0, +1, +0}};
 
         for(auto i = 1; i < img.size() - 1; ++i) {
             for(auto j = 1; j < img[0].size() - 1; ++j) {
@@ -25,7 +25,7 @@ public:
                         val += laplaceMat[di + 1][dj + 1] * img[i + di][j + dj];
                     }
                 }
-                ret[i - 1][j - 1] = std::min(std::max(int(val + img[i][j]), 0), 255);
+                ret[i - 1][j - 1] = std::min(std::max(int(img[i][j] - 1 * val), 0), 255);
             }
         }
 

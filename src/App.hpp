@@ -33,6 +33,12 @@ public slots:
             _imgCore->loadImg(imgPath.toStdString());
     };
 
+    void saveImg() {
+        QString savePath = QFileDialog::getSaveFileName(nullptr, QString(), QString(), QString("Image Files (*.png)"));
+        if(savePath != "")
+            _imgCore->saveImg(savePath.toStdString());
+    }
+
     void swapImg() {
         auto tmpImg = _imgCore->getDstImgMat();
         _imgCore->setDstImgMat(_imgCore->getOriImgMat());
