@@ -5,8 +5,8 @@ import "components"
 Rectangle {
     id: window
     // visible: true
-    width: 1366
-    height: 768
+    width: 1600
+    height: 900
     // flags: Qt.FramelessWindowHint | Qt.Window
 
     FontLoader {

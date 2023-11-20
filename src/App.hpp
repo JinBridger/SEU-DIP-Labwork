@@ -6,6 +6,7 @@
 #include "ImgProvider.hpp"
 #include "Noise.hpp"
 #include "Enhancement.hpp"
+#include "Jpg.hpp"
 
 #include <QCoreApplication>
 #include <QFileDialog>
@@ -115,6 +116,14 @@ public slots:
 
     void laplaceSharpening() {
         _imgCore->setDstImgMat(Enhancement().laplaceSharpening(_imgCore->getOriImgMat()));
+    }
+
+    void jpgCompress() {
+        _imgCore->setDstImgMat(Jpg().jpgCompress(_imgCore->getOriImgMat()));
+    }
+
+    void jpg2KCompress() {
+        _imgCore->setDstImgMat(Jpg().jpg2KCompress(_imgCore->getOriImgMat()));
     }
 
     void quitApplication() {

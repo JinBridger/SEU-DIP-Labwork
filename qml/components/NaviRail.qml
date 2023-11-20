@@ -535,6 +535,46 @@ Item {
                     font.pointSize: 18
                 }
             }
+
+            Item {
+                width: 1
+                height: 10
+            }
+
+            ToolButton {
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
+                        if (mouse.button === Qt.LeftButton) {
+                            appView.jpgCompress();
+                            mapImg.reloadImage();
+                            mapImgHist.reloadImage();
+                        } else if (mouse.button === Qt.RightButton) {
+                            appView.jpg2KCompress();
+                            mapImg.reloadImage();
+                            mapImgHist.reloadImage();
+                        }
+                    }
+                }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("JPEG Compress\n  · Left click for JPEG Compress\n  · Right click for JPEG2000 Compress")
+
+
+                contentItem: Text {
+                    text: MdiFont.Icon.fileJpgBox
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
         }
     }
 
