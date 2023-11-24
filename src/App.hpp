@@ -126,6 +126,20 @@ public slots:
         _imgCore->setDstImgMat(Jpg().jpg2KCompress(_imgCore->getOriImgMat()));
     }
 
+    void calcMSE() {
+        std::cout << std::endl << "MSE: ";
+        std::cout << Utils().calcMSE(_imgCore->getOriImgMat(), _imgCore->getDstImgMat()) << std::endl;
+    }
+
+    void calcPSNR() {
+        std::cout << std::endl << "PSNR: ";
+        std::cout << Utils().calcPSNR(_imgCore->getOriImgMat(), _imgCore->getDstImgMat()) << std::endl;
+    }
+
+    void testFun() {
+        Utils().testFun(_imgCore->getOriImgMat());
+    }
+
     void quitApplication() {
         QCoreApplication::quit();
     }

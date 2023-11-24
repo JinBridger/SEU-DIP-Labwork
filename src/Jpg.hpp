@@ -4,8 +4,7 @@
 
 class Jpg {
 public:
-    cv::Mat jpgCompress(cv::Mat srcImg) {
-        const int compressRatio = 50;
+    cv::Mat jpgCompress(cv::Mat srcImg, int compressRatio = 10) {
         std::vector<uchar> buffer;
         std::vector<int> compressParams;
         compressParams.push_back(cv::IMWRITE_JPEG_QUALITY);
@@ -16,14 +15,13 @@ public:
         return ret;
     }
 
-    cv::Mat jpg2KCompress(cv::Mat srcImg) {
-        const int compressRatio = 500;
+    cv::Mat jpg2KCompress(cv::Mat srcImg, int compressRatio = 10) {
         std::vector<uchar> buffer;
         std::vector<int> compressParams;
         compressParams.push_back(cv::IMWRITE_JPEG2000_COMPRESSION_X1000);
         compressParams.push_back(compressRatio);
 
-        cv::imencode(".jpg", srcImg, buffer, compressParams);
+        cv::imencode(".jp2", srcImg, buffer, compressParams);
         auto ret = cv::imdecode(buffer, -1);
         return ret;
     }
