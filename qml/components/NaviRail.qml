@@ -223,358 +223,358 @@ Item {
                     font.pointSize: 18
                 }
             }
-
-            Item {
-                width: 1
-                height: 10
-            }
-
-            ToolButton {
-                background: Rectangle {
-                    width: parent.width
-                    color: "transparent"
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    acceptedButtons: Qt.AllButtons
-
-                    onClicked: {
-                        if (mouse.button === Qt.LeftButton) {
-                            appView.gaussianNoise();
-                            mapImg.reloadImage();
-                            mapImgHist.reloadImage();
-                        } else if (mouse.button === Qt.RightButton) {
-                            appView.saltPepperNoise();
-                            mapImg.reloadImage();
-                            mapImgHist.reloadImage();
-                        }
-                    }
-                }
-
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("Add Noise\n  · Left click for gaussian noise\n  · Right click for salt & pepper noise")
-
-
-                contentItem: Text {
-                    text: MdiFont.Icon.checkerboardPlus
-                    color: "gray"
-                    font.family: materialIcon.font.family
-                    font.pointSize: 18
-                }
-            }
-
-            Item {
-                width: 1
-                height: 10
-            }
-
-            ToolButton {
-                background: Rectangle {
-                    width: parent.width
-                    color: "transparent"
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    acceptedButtons: Qt.AllButtons
-
-                    onClicked: {
-                        appView.medianFilter();
-                        mapImg.reloadImage();
-                        mapImgHist.reloadImage();
-                    }
-                }
-
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("Median Filter")
-
-
-                contentItem: Text {
-                    text: MdiFont.Icon.alphaMBoxOutline
-                    color: "gray"
-                    font.family: materialIcon.font.family
-                    font.pointSize: 18
-                }
-            }
-
-            Item {
-                width: 1
-                height: 10
-            }
-
-            ToolButton {
-                background: Rectangle {
-                    width: parent.width
-                    color: "transparent"
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    acceptedButtons: Qt.AllButtons
-
-                    onClicked: {
-                        appView.averagingFilter();
-                        mapImg.reloadImage();
-                        mapImgHist.reloadImage();
-                    }
-                }
-
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("Averaging Filter")
-
-
-                contentItem: Text {
-                    text: MdiFont.Icon.alphaABoxOutline
-                    color: "gray"
-                    font.family: materialIcon.font.family
-                    font.pointSize: 18
-                }
-            }
-
-            Item {
-                width: 1
-                height: 10
-            }
-
-            ToolButton {
-                background: Rectangle {
-                    width: parent.width
-                    color: "transparent"
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    acceptedButtons: Qt.AllButtons
-
-                    onClicked: {
-                        appView.adaptiveMedianFilter();
-                        mapImg.reloadImage();
-                        mapImgHist.reloadImage();
-                    }
-                }
-
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("Adaptive Median Filter")
-
-
-                contentItem: Text {
-                    text: MdiFont.Icon.alphaDBoxOutline
-                    color: "gray"
-                    font.family: materialIcon.font.family
-                    font.pointSize: 18
-                }
-            }
-
-            Item {
-                width: 1
-                height: 10
-            }
-
-            ToolButton {
-                background: Rectangle {
-                    width: parent.width
-                    color: "transparent"
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    acceptedButtons: Qt.AllButtons
-
-                    onClicked: {
-                        appView.adaptiveLocalFilter();
-                        mapImg.reloadImage();
-                        mapImgHist.reloadImage();
-                    }
-                }
-
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("Adaptive Local Noise Reduction Filter")
-
-
-                contentItem: Text {
-                    text: MdiFont.Icon.alphaLBoxOutline
-                    color: "gray"
-                    font.family: materialIcon.font.family
-                    font.pointSize: 18
-                }
-            }
-
-            Item {
-                width: 1
-                height: 10
-            }
-
-            ToolButton {
-                background: Rectangle {
-                    width: parent.width
-                    color: "transparent"
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    acceptedButtons: Qt.AllButtons
-
-                    onClicked: {
-                        appView.nonLocalMeansFilter();
-                        mapImg.reloadImage();
-                        mapImgHist.reloadImage();
-                    }
-                }
-
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("Nonlocal Means")
-
-
-                contentItem: Text {
-                    text: MdiFont.Icon.alphaNBoxOutline
-                    color: "gray"
-                    font.family: materialIcon.font.family
-                    font.pointSize: 18
-                }
-            }
-
-            Item {
-                width: 1
-                height: 10
-            }
-
-            ToolButton {
-                background: Rectangle {
-                    width: parent.width
-                    color: "transparent"
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    acceptedButtons: Qt.AllButtons
-
-                    onClicked: {
-                        appView.gaussianBlur();
-                        mapImg.reloadImage();
-                        mapImgHist.reloadImage();
-                    }
-                }
-
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("Gaussian Blur")
-
-
-                contentItem: Text {
-                    text: MdiFont.Icon.blur
-                    color: "gray"
-                    font.family: materialIcon.font.family
-                    font.pointSize: 18
-                }
-            }
-
-            Item {
-                width: 1
-                height: 10
-            }
-
-            ToolButton {
-                background: Rectangle {
-                    width: parent.width
-                    color: "transparent"
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    acceptedButtons: Qt.AllButtons
-
-                    onClicked: {
-                        appView.laplaceSharpening();
-                        mapImg.reloadImage();
-                        mapImgHist.reloadImage();
-                    }
-                }
-
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("Laplace Sharpening")
-
-
-                contentItem: Text {
-                    text: MdiFont.Icon.multiplicationBox
-                    color: "gray"
-                    font.family: materialIcon.font.family
-                    font.pointSize: 18
-                }
-            }
-
-            Item {
-                width: 1
-                height: 10
-            }
-
-            ToolButton {
-                background: Rectangle {
-                    width: parent.width
-                    color: "transparent"
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    acceptedButtons: Qt.AllButtons
-
-                    onClicked: {
-                        appView.unsharpMasking();
-                        mapImg.reloadImage();
-                        mapImgHist.reloadImage();
-                    }
-                }
-
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("USM Sharpening")
-
-
-                contentItem: Text {
-                    text: MdiFont.Icon.knife
-                    color: "gray"
-                    font.family: materialIcon.font.family
-                    font.pointSize: 18
-                }
-            }
-
-            Item {
-                width: 1
-                height: 10
-            }
-
-            ToolButton {
-                background: Rectangle {
-                    width: parent.width
-                    color: "transparent"
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    acceptedButtons: Qt.AllButtons
-
-                    onClicked: {
-                        if (mouse.button === Qt.LeftButton) {
-                            appView.jpgCompress();
-                            mapImg.reloadImage();
-                            mapImgHist.reloadImage();
-                        } else if (mouse.button === Qt.RightButton) {
-                            appView.jpg2KCompress();
-                            mapImg.reloadImage();
-                            mapImgHist.reloadImage();
-                        }
-                    }
-                }
-
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("JPEG Compress\n  · Left click for JPEG Compress\n  · Right click for JPEG2000 Compress")
-
-
-                contentItem: Text {
-                    text: MdiFont.Icon.fileJpgBox
-                    color: "gray"
-                    font.family: materialIcon.font.family
-                    font.pointSize: 18
-                }
-            }
+            //
+            // Item {
+            //     width: 1
+            //     height: 10
+            // }
+            //
+            // ToolButton {
+            //     background: Rectangle {
+            //         width: parent.width
+            //         color: "transparent"
+            //     }
+            //
+            //     MouseArea {
+            //         anchors.fill: parent
+            //         acceptedButtons: Qt.AllButtons
+            //
+            //         onClicked: {
+            //             if (mouse.button === Qt.LeftButton) {
+            //                 appView.gaussianNoise();
+            //                 mapImg.reloadImage();
+            //                 mapImgHist.reloadImage();
+            //             } else if (mouse.button === Qt.RightButton) {
+            //                 appView.saltPepperNoise();
+            //                 mapImg.reloadImage();
+            //                 mapImgHist.reloadImage();
+            //             }
+            //         }
+            //     }
+            //
+            //     ToolTip.visible: hovered
+            //     ToolTip.text: qsTr("Add Noise\n  · Left click for gaussian noise\n  · Right click for salt & pepper noise")
+            //
+            //
+            //     contentItem: Text {
+            //         text: MdiFont.Icon.checkerboardPlus
+            //         color: "gray"
+            //         font.family: materialIcon.font.family
+            //         font.pointSize: 18
+            //     }
+            // }
+            //
+            // Item {
+            //     width: 1
+            //     height: 10
+            // }
+            //
+            // ToolButton {
+            //     background: Rectangle {
+            //         width: parent.width
+            //         color: "transparent"
+            //     }
+            //
+            //     MouseArea {
+            //         anchors.fill: parent
+            //         acceptedButtons: Qt.AllButtons
+            //
+            //         onClicked: {
+            //             appView.medianFilter();
+            //             mapImg.reloadImage();
+            //             mapImgHist.reloadImage();
+            //         }
+            //     }
+            //
+            //     ToolTip.visible: hovered
+            //     ToolTip.text: qsTr("Median Filter")
+            //
+            //
+            //     contentItem: Text {
+            //         text: MdiFont.Icon.alphaMBoxOutline
+            //         color: "gray"
+            //         font.family: materialIcon.font.family
+            //         font.pointSize: 18
+            //     }
+            // }
+            //
+            // Item {
+            //     width: 1
+            //     height: 10
+            // }
+            //
+            // ToolButton {
+            //     background: Rectangle {
+            //         width: parent.width
+            //         color: "transparent"
+            //     }
+            //
+            //     MouseArea {
+            //         anchors.fill: parent
+            //         acceptedButtons: Qt.AllButtons
+            //
+            //         onClicked: {
+            //             appView.averagingFilter();
+            //             mapImg.reloadImage();
+            //             mapImgHist.reloadImage();
+            //         }
+            //     }
+            //
+            //     ToolTip.visible: hovered
+            //     ToolTip.text: qsTr("Averaging Filter")
+            //
+            //
+            //     contentItem: Text {
+            //         text: MdiFont.Icon.alphaABoxOutline
+            //         color: "gray"
+            //         font.family: materialIcon.font.family
+            //         font.pointSize: 18
+            //     }
+            // }
+            //
+            // Item {
+            //     width: 1
+            //     height: 10
+            // }
+            //
+            // ToolButton {
+            //     background: Rectangle {
+            //         width: parent.width
+            //         color: "transparent"
+            //     }
+            //
+            //     MouseArea {
+            //         anchors.fill: parent
+            //         acceptedButtons: Qt.AllButtons
+            //
+            //         onClicked: {
+            //             appView.adaptiveMedianFilter();
+            //             mapImg.reloadImage();
+            //             mapImgHist.reloadImage();
+            //         }
+            //     }
+            //
+            //     ToolTip.visible: hovered
+            //     ToolTip.text: qsTr("Adaptive Median Filter")
+            //
+            //
+            //     contentItem: Text {
+            //         text: MdiFont.Icon.alphaDBoxOutline
+            //         color: "gray"
+            //         font.family: materialIcon.font.family
+            //         font.pointSize: 18
+            //     }
+            // }
+            //
+            // Item {
+            //     width: 1
+            //     height: 10
+            // }
+            //
+            // ToolButton {
+            //     background: Rectangle {
+            //         width: parent.width
+            //         color: "transparent"
+            //     }
+            //
+            //     MouseArea {
+            //         anchors.fill: parent
+            //         acceptedButtons: Qt.AllButtons
+            //
+            //         onClicked: {
+            //             appView.adaptiveLocalFilter();
+            //             mapImg.reloadImage();
+            //             mapImgHist.reloadImage();
+            //         }
+            //     }
+            //
+            //     ToolTip.visible: hovered
+            //     ToolTip.text: qsTr("Adaptive Local Noise Reduction Filter")
+            //
+            //
+            //     contentItem: Text {
+            //         text: MdiFont.Icon.alphaLBoxOutline
+            //         color: "gray"
+            //         font.family: materialIcon.font.family
+            //         font.pointSize: 18
+            //     }
+            // }
+            //
+            // Item {
+            //     width: 1
+            //     height: 10
+            // }
+            //
+            // ToolButton {
+            //     background: Rectangle {
+            //         width: parent.width
+            //         color: "transparent"
+            //     }
+            //
+            //     MouseArea {
+            //         anchors.fill: parent
+            //         acceptedButtons: Qt.AllButtons
+            //
+            //         onClicked: {
+            //             appView.nonLocalMeansFilter();
+            //             mapImg.reloadImage();
+            //             mapImgHist.reloadImage();
+            //         }
+            //     }
+            //
+            //     ToolTip.visible: hovered
+            //     ToolTip.text: qsTr("Nonlocal Means")
+            //
+            //
+            //     contentItem: Text {
+            //         text: MdiFont.Icon.alphaNBoxOutline
+            //         color: "gray"
+            //         font.family: materialIcon.font.family
+            //         font.pointSize: 18
+            //     }
+            // }
+            //
+            // Item {
+            //     width: 1
+            //     height: 10
+            // }
+            //
+            // ToolButton {
+            //     background: Rectangle {
+            //         width: parent.width
+            //         color: "transparent"
+            //     }
+            //
+            //     MouseArea {
+            //         anchors.fill: parent
+            //         acceptedButtons: Qt.AllButtons
+            //
+            //         onClicked: {
+            //             appView.gaussianBlur();
+            //             mapImg.reloadImage();
+            //             mapImgHist.reloadImage();
+            //         }
+            //     }
+            //
+            //     ToolTip.visible: hovered
+            //     ToolTip.text: qsTr("Gaussian Blur")
+            //
+            //
+            //     contentItem: Text {
+            //         text: MdiFont.Icon.blur
+            //         color: "gray"
+            //         font.family: materialIcon.font.family
+            //         font.pointSize: 18
+            //     }
+            // }
+            //
+            // Item {
+            //     width: 1
+            //     height: 10
+            // }
+            //
+            // ToolButton {
+            //     background: Rectangle {
+            //         width: parent.width
+            //         color: "transparent"
+            //     }
+            //
+            //     MouseArea {
+            //         anchors.fill: parent
+            //         acceptedButtons: Qt.AllButtons
+            //
+            //         onClicked: {
+            //             appView.laplaceSharpening();
+            //             mapImg.reloadImage();
+            //             mapImgHist.reloadImage();
+            //         }
+            //     }
+            //
+            //     ToolTip.visible: hovered
+            //     ToolTip.text: qsTr("Laplace Sharpening")
+            //
+            //
+            //     contentItem: Text {
+            //         text: MdiFont.Icon.multiplicationBox
+            //         color: "gray"
+            //         font.family: materialIcon.font.family
+            //         font.pointSize: 18
+            //     }
+            // }
+            //
+            // Item {
+            //     width: 1
+            //     height: 10
+            // }
+            //
+            // ToolButton {
+            //     background: Rectangle {
+            //         width: parent.width
+            //         color: "transparent"
+            //     }
+            //
+            //     MouseArea {
+            //         anchors.fill: parent
+            //         acceptedButtons: Qt.AllButtons
+            //
+            //         onClicked: {
+            //             appView.unsharpMasking();
+            //             mapImg.reloadImage();
+            //             mapImgHist.reloadImage();
+            //         }
+            //     }
+            //
+            //     ToolTip.visible: hovered
+            //     ToolTip.text: qsTr("USM Sharpening")
+            //
+            //
+            //     contentItem: Text {
+            //         text: MdiFont.Icon.knife
+            //         color: "gray"
+            //         font.family: materialIcon.font.family
+            //         font.pointSize: 18
+            //     }
+            // }
+            //
+            // Item {
+            //     width: 1
+            //     height: 10
+            // }
+            //
+            // ToolButton {
+            //     background: Rectangle {
+            //         width: parent.width
+            //         color: "transparent"
+            //     }
+            //
+            //     MouseArea {
+            //         anchors.fill: parent
+            //         acceptedButtons: Qt.AllButtons
+            //
+            //         onClicked: {
+            //             if (mouse.button === Qt.LeftButton) {
+            //                 appView.jpgCompress();
+            //                 mapImg.reloadImage();
+            //                 mapImgHist.reloadImage();
+            //             } else if (mouse.button === Qt.RightButton) {
+            //                 appView.jpg2KCompress();
+            //                 mapImg.reloadImage();
+            //                 mapImgHist.reloadImage();
+            //             }
+            //         }
+            //     }
+            //
+            //     ToolTip.visible: hovered
+            //     ToolTip.text: qsTr("JPEG Compress\n  · Left click for JPEG Compress\n  · Right click for JPEG2000 Compress")
+            //
+            //
+            //     contentItem: Text {
+            //         text: MdiFont.Icon.fileJpgBox
+            //         color: "gray"
+            //         font.family: materialIcon.font.family
+            //         font.pointSize: 18
+            //     }
+            // }
 
             // Item {
             //     width: 1
@@ -784,6 +784,42 @@ Item {
 
                 contentItem: Text {
                     text: MdiFont.Icon.alphaOBox
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
+
+            Item {
+                width: 1
+                height: 10
+            }
+
+            ToolButton {
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
+                        if (mouse.button === Qt.LeftButton) {
+                            appView.cannyBorderDetect();
+                            mapImg.reloadImage();
+                            mapImgHist.reloadImage();
+                        }
+                    }
+                }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Canny Border Detect")
+
+
+                contentItem: Text {
+                    text: MdiFont.Icon.circleHalfFull
                     color: "gray"
                     font.family: materialIcon.font.family
                     font.pointSize: 18

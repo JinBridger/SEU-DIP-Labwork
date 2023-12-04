@@ -3,7 +3,7 @@
 #include "opencv2/opencv.hpp"
 #include "Utils.hpp"
 
-class Threshold {
+class Segmentation {
 public:
     cv::Mat globalThreshold(cv::Mat srcImg, int thres = 100) {
         auto img = Utils().cvt2dVector<int>(srcImg);
@@ -56,5 +56,11 @@ public:
         }
 
         return globalThreshold(srcImg, threshold);
+    }
+
+    cv::Mat cannyBorderDetect(cv::Mat srcImg) {
+        cv::Mat ret;
+        cv::Canny(srcImg, ret, 50, 100);
+        return ret;
     }
 };

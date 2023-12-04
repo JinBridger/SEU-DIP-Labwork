@@ -8,7 +8,7 @@
 #include "Enhancement.hpp"
 #include "Jpg.hpp"
 #include "Morphology.hpp"
-#include "Threshold.hpp"
+#include "Segmentation.hpp"
 
 #include <QCoreApplication>
 #include <QFileDialog>
@@ -137,11 +137,15 @@ public slots:
     }
 
     void globalThreshold() {
-        _imgCore->setDstImgMat(Threshold().globalThreshold(_imgCore->getOriImgMat()));
+        _imgCore->setDstImgMat(Segmentation().globalThreshold(_imgCore->getOriImgMat()));
     }
 
     void otsuThreshold() {
-        _imgCore->setDstImgMat(Threshold().otsuThreshold(_imgCore->getOriImgMat()));
+        _imgCore->setDstImgMat(Segmentation().otsuThreshold(_imgCore->getOriImgMat()));
+    }
+
+    void cannyBorderDetect() {
+        _imgCore->setDstImgMat(Segmentation().cannyBorderDetect(_imgCore->getOriImgMat()));
     }
 
     void calcMSE() {
