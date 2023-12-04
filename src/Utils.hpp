@@ -88,5 +88,7 @@ public:
             std::cout << std::to_string(jp2MSE[i]) << ",";
             std::cout << std::to_string(jp2PSNR[i]) << std::endl;
         }
+
+        return 0;
     }
 };

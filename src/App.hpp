@@ -7,6 +7,8 @@
 #include "Noise.hpp"
 #include "Enhancement.hpp"
 #include "Jpg.hpp"
+#include "Morphology.hpp"
+#include "Threshold.hpp"
 
 #include <QCoreApplication>
 #include <QFileDialog>
@@ -124,6 +126,22 @@ public slots:
 
     void jpg2KCompress() {
         _imgCore->setDstImgMat(Jpg().jpg2KCompress(_imgCore->getOriImgMat()));
+    }
+
+    void dilation() {
+        _imgCore->setDstImgMat(Morphology().dilation(_imgCore->getOriImgMat()));
+    }
+
+    void erosion() {
+        _imgCore->setDstImgMat(Morphology().erosion(_imgCore->getOriImgMat()));
+    }
+
+    void globalThreshold() {
+        _imgCore->setDstImgMat(Threshold().globalThreshold(_imgCore->getOriImgMat()));
+    }
+
+    void otsuThreshold() {
+        _imgCore->setDstImgMat(Threshold().otsuThreshold(_imgCore->getOriImgMat()));
     }
 
     void calcMSE() {

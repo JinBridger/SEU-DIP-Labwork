@@ -576,6 +576,76 @@ Item {
                 }
             }
 
+            // Item {
+            //     width: 1
+            //     height: 10
+            // }
+            //
+            // ToolButton {
+            //     background: Rectangle {
+            //         width: parent.width
+            //         color: "transparent"
+            //     }
+            //
+            //     MouseArea {
+            //         anchors.fill: parent
+            //         acceptedButtons: Qt.AllButtons
+            //
+            //         onClicked: {
+            //             if (mouse.button === Qt.LeftButton) {
+            //                 appView.calcMSE();
+            //             } else if (mouse.button === Qt.RightButton) {
+            //                 appView.calcPSNR();
+            //             }
+            //         }
+            //     }
+            //
+            //     ToolTip.visible: hovered
+            //     ToolTip.text: qsTr("Diff\n  · Left click for MSE\n  · Right click for PSNR")
+            //
+            //
+            //     contentItem: Text {
+            //         text: MdiFont.Icon.vectorDifference
+            //         color: "gray"
+            //         font.family: materialIcon.font.family
+            //         font.pointSize: 18
+            //     }
+            // }
+            //
+            // Item {
+            //     width: 1
+            //     height: 10
+            // }
+            //
+            // ToolButton {
+            //     background: Rectangle {
+            //         width: parent.width
+            //         color: "transparent"
+            //     }
+            //
+            //     MouseArea {
+            //         anchors.fill: parent
+            //         acceptedButtons: Qt.AllButtons
+            //
+            //         onClicked: {
+            //             if (mouse.button === Qt.LeftButton) {
+            //                 appView.testFun();
+            //             }
+            //         }
+            //     }
+            //
+            //     ToolTip.visible: hovered
+            //     ToolTip.text: qsTr("Test Function")
+            //
+            //
+            //     contentItem: Text {
+            //         text: MdiFont.Icon.flask
+            //         color: "gray"
+            //         font.family: materialIcon.font.family
+            //         font.pointSize: 18
+            //     }
+            // }
+
             Item {
                 width: 1
                 height: 10
@@ -593,19 +663,19 @@ Item {
 
                     onClicked: {
                         if (mouse.button === Qt.LeftButton) {
-                            appView.calcMSE();
-                        } else if (mouse.button === Qt.RightButton) {
-                            appView.calcPSNR();
+                            appView.dilation();
+                            mapImg.reloadImage();
+                            mapImgHist.reloadImage();
                         }
                     }
                 }
 
                 ToolTip.visible: hovered
-                ToolTip.text: qsTr("Diff\n  · Left click for MSE\n  · Right click for PSNR")
+                ToolTip.text: qsTr("Dilation")
 
 
                 contentItem: Text {
-                    text: MdiFont.Icon.vectorDifference
+                    text: MdiFont.Icon.arrowExpandAll
                     color: "gray"
                     font.family: materialIcon.font.family
                     font.pointSize: 18
@@ -629,17 +699,91 @@ Item {
 
                     onClicked: {
                         if (mouse.button === Qt.LeftButton) {
-                            appView.testFun();
+                            appView.erosion();
+                            mapImg.reloadImage();
+                            mapImgHist.reloadImage();
                         }
                     }
                 }
 
                 ToolTip.visible: hovered
-                ToolTip.text: qsTr("Test Function")
+                ToolTip.text: qsTr("Erosion")
 
 
                 contentItem: Text {
-                    text: MdiFont.Icon.flask
+                    text: MdiFont.Icon.arrowCollapseAll
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
+
+            Item {
+                width: 1
+                height: 10
+            }
+
+            ToolButton {
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
+                        if (mouse.button === Qt.LeftButton) {
+                            appView.globalThreshold();
+                            mapImg.reloadImage();
+                            mapImgHist.reloadImage();
+                        }
+                    }
+                }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Global Threshold")
+
+
+                contentItem: Text {
+                    text: MdiFont.Icon.squareWave
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
+
+            Item {
+                width: 1
+                height: 10
+            }
+
+            ToolButton {
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
+                        if (mouse.button === Qt.LeftButton) {
+                            appView.otsuThreshold();
+                            mapImg.reloadImage();
+                            mapImgHist.reloadImage();
+                        }
+                    }
+                }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Otsu Threshold")
+
+
+                contentItem: Text {
+                    text: MdiFont.Icon.alphaOBox
                     color: "gray"
                     font.family: materialIcon.font.family
                     font.pointSize: 18

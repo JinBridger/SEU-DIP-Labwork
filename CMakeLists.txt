@@ -10,6 +10,9 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2")
 
+find_package(Qt6 COMPONENTS Core Quick REQUIRED)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+
 set(OpenCV_DIR "${VCPKG_INSTALLED_DIR}/x64-windows/share/opencv4")
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
@@ -21,9 +24,6 @@ if(MSVC)
 endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-find_package(Qt6 COMPONENTS Core Quick REQUIRED)
-find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
 qt_add_big_resources(SOURCES res.qrc)
 
@@ -39,6 +39,8 @@ add_executable(SEU-DIP-Labwork
         src/Noise.hpp
         src/Enhancement.hpp
         src/Jpg.hpp
+        src/Morphology.hpp
+        src/Threshold.hpp
 )
 
 target_link_libraries(${PROJECT_NAME} Qt6::Core Qt6::Quick Qt6::Widgets ${OpenCV_LIBS})
