@@ -7,13 +7,44 @@ class Segmentation {
 public:
     cv::Mat globalThreshold(cv::Mat srcImg, int thres = 100) {
         auto img = Utils().cvt2dVector<int>(srcImg);
-        for(auto& line: img)
-            for(auto& pixel: line) {
-                if (pixel > thres)
-                    pixel = 255;
-                else
-                    pixel = 0;
+
+        int allSum = 0;
+        for(auto& line : img)
+            for(auto& pixel: line)
+                allSum += pixel;
+        allSum /= (img.size() * img[0].size());
+
+        int t_0 = allSum;
+        int t_1 = 0;
+        while(abs(t_0 - t_1) > 1) {
+            int m_0 = 0, m_1 = 0;
+            int c_0 = 0, c_1 = 0;
+            for(auto& line: img) {
+                for (auto &pixel: line) {
+                    if (pixel < t_0) {
+                        m_0 += pixel;
+                        c_0++;
+                    } else {
+                        m_1 += pixel;
+                        c_1++;
+                    }
+                }
             }
+            m_0 /= c_0;
+            m_1 /= c_1;
+            t_1 = (m_0 + m_1) / 2;
+            int tmp = t_0;
+            t_0 = t_1;
+            t_1 = tmp;
+        }
+
+        for(auto& line: img)
+            for(auto& pixel: line)
+                if(pixel > t_0) {
+                    pixel = 255;
+                } else {
+                    pixel = 0;
+                }
 
         return Utils().cvtCvMat(img);
     }
@@ -55,7 +86,15 @@ public:
             }
         }
 
-        return globalThreshold(srcImg, threshold);
+        for(auto& line: img)
+            for(auto& pixel: line) {
+                if (pixel > threshold)
+                    pixel = 255;
+                else
+                    pixel = 0;
+            }
+
+        return Utils().cvtCvMat(img);
     }
 
     cv::Mat cannyBorderDetect(cv::Mat srcImg) {
