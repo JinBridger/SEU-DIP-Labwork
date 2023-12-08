@@ -53,3 +53,9 @@ ninja
 
 - ✅ 实现 JPEG 压缩
 - ✅ 实现 JPEG2000 压缩
+
+#### 实验五 形态学与图像分割
+
+- ✅ 膨胀与腐蚀操作
+- ✅ Global Thresholding 与 Otsu's Thresholding
+- ✅ Canny 算子
