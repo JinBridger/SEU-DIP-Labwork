@@ -41,6 +41,7 @@ add_executable(SEU-DIP-Labwork
         src/Jpg.hpp
         src/Morphology.hpp
         src/Segmentation.hpp
+        src/Raw.hpp
 )
 
 target_link_libraries(${PROJECT_NAME} Qt6::Core Qt6::Quick Qt6::Widgets ${OpenCV_LIBS})

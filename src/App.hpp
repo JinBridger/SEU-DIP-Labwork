@@ -9,6 +9,7 @@
 #include "Jpg.hpp"
 #include "Morphology.hpp"
 #include "Segmentation.hpp"
+#include "Raw.hpp"
 
 #include <QCoreApplication>
 #include <QFileDialog>
@@ -32,8 +33,11 @@ public:
 public slots:
     void loadImg() {
         QString imgPath = QFileDialog::getOpenFileName();
-        if (imgPath != "")
+        if(imgPath.endsWith(".raw")) {
+            _imgCore->setOriImgMat(Raw().readFromRaw(imgPath.toStdString()));
+        } else {
             _imgCore->loadImg(imgPath.toStdString());
+        }
     };
 
     void saveImg() {
@@ -78,6 +82,14 @@ public slots:
 
     void customCLAHE() {
         _imgCore->setDstImgMat(Histogram().customClahe(_imgCore->getOriImgMat()));
+    }
+
+    void xEnhancement() {
+        auto img = _imgCore->getOriImgMat();
+        img = Histogram().customClahe(img);
+        img = Histogram().customClahe(img);
+        img = Histogram().customClahe(img);
+        _imgCore->setDstImgMat(img);
     }
 
     void gaussianNoise() {

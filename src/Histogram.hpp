@@ -67,8 +67,8 @@ public:
 
     [[nodiscard]] cv::Mat histogramEqualization(cv::Mat srcImage) {
         cv::Mat ret;
-
-        cv::cvtColor(srcImage, srcImage, cv::COLOR_BGR2GRAY);
+        if(srcImage.type() == CV_8UC3)
+            cv::cvtColor(srcImage, srcImage, cv::COLOR_BGR2GRAY);
         cv::equalizeHist(srcImage, ret);
 
         return ret;
@@ -122,7 +122,10 @@ public:
 
     [[nodiscard]] cv::Mat clahe(cv::Mat srcImage) {
         cv::Mat gray;
-        cv::cvtColor(srcImage, gray, cv::COLOR_BGR2GRAY);
+        if(srcImage.type() == CV_8UC3)
+            cv::cvtColor(srcImage, gray, cv::COLOR_BGR2GRAY);
+        else
+            gray = srcImage;
         cv::Mat ret;
 
         cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE();

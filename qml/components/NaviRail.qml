@@ -468,73 +468,73 @@ Item {
             //     }
             // }
             //
-            // Item {
-            //     width: 1
-            //     height: 10
-            // }
-            //
-            // ToolButton {
-            //     background: Rectangle {
-            //         width: parent.width
-            //         color: "transparent"
-            //     }
-            //
-            //     MouseArea {
-            //         anchors.fill: parent
-            //         acceptedButtons: Qt.AllButtons
-            //
-            //         onClicked: {
-            //             appView.laplaceSharpening();
-            //             mapImg.reloadImage();
-            //             mapImgHist.reloadImage();
-            //         }
-            //     }
-            //
-            //     ToolTip.visible: hovered
-            //     ToolTip.text: qsTr("Laplace Sharpening")
-            //
-            //
-            //     contentItem: Text {
-            //         text: MdiFont.Icon.multiplicationBox
-            //         color: "gray"
-            //         font.family: materialIcon.font.family
-            //         font.pointSize: 18
-            //     }
-            // }
-            //
-            // Item {
-            //     width: 1
-            //     height: 10
-            // }
-            //
-            // ToolButton {
-            //     background: Rectangle {
-            //         width: parent.width
-            //         color: "transparent"
-            //     }
-            //
-            //     MouseArea {
-            //         anchors.fill: parent
-            //         acceptedButtons: Qt.AllButtons
-            //
-            //         onClicked: {
-            //             appView.unsharpMasking();
-            //             mapImg.reloadImage();
-            //             mapImgHist.reloadImage();
-            //         }
-            //     }
-            //
-            //     ToolTip.visible: hovered
-            //     ToolTip.text: qsTr("USM Sharpening")
-            //
-            //
-            //     contentItem: Text {
-            //         text: MdiFont.Icon.knife
-            //         color: "gray"
-            //         font.family: materialIcon.font.family
-            //         font.pointSize: 18
-            //     }
-            // }
+            Item {
+                width: 1
+                height: 10
+            }
+
+            ToolButton {
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
+                        appView.laplaceSharpening();
+                        mapImg.reloadImage();
+                        mapImgHist.reloadImage();
+                    }
+                }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Laplace Sharpening")
+
+
+                contentItem: Text {
+                    text: MdiFont.Icon.multiplicationBox
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
+
+            Item {
+                width: 1
+                height: 10
+            }
+
+            ToolButton {
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
+                        appView.unsharpMasking();
+                        mapImg.reloadImage();
+                        mapImgHist.reloadImage();
+                    }
+                }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("USM Sharpening")
+
+
+                contentItem: Text {
+                    text: MdiFont.Icon.knife
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
             //
             // Item {
             //     width: 1
@@ -820,6 +820,42 @@ Item {
 
                 contentItem: Text {
                     text: MdiFont.Icon.circleHalfFull
+                    color: "gray"
+                    font.family: materialIcon.font.family
+                    font.pointSize: 18
+                }
+            }
+
+            Item {
+                width: 1
+                height: 10
+            }
+
+            ToolButton {
+                background: Rectangle {
+                    width: parent.width
+                    color: "transparent"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.AllButtons
+
+                    onClicked: {
+                        if (mouse.button === Qt.LeftButton) {
+                            appView.xEnhancement();
+                            mapImg.reloadImage();
+                            mapImgHist.reloadImage();
+                        }
+                    }
+                }
+
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("X-ray Enhancement")
+
+
+                contentItem: Text {
+                    text: MdiFont.Icon.alphaXBoxOutline
                     color: "gray"
                     font.family: materialIcon.font.family
                     font.pointSize: 18
