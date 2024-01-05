@@ -2,10 +2,6 @@
 
 本项目为东南大学2021级计算机科学与技术专业数字图像处理实验。
 
-## 📸 屏幕截图
-
-![screenshot](screenshot.png)
-
 ## ✨ 快速开始
 
 ### Requirements
@@ -67,3 +63,11 @@ ninja
 #### 实验六 略
 
 #### 实验七 医学影像处理 略
+
+## 📕 实验报告
+
+参见 `doc` 文件夹
+
+## 📸 屏幕截图
+
+![screenshot](screenshot.png)
